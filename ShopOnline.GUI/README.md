@@ -2,6 +2,17 @@
 - Data Driven Design (3 layers -> Data - Business(Service) - GUI)
 - .Net Framework 5.0
 
+#Structure Data Layer
+- AbstractRepository : IRepository
+- ProductRepository : AbstractRepository
+1) ShopOnlineRepository : IDisposable 
+	=> help connect all repositories using same the DBContext instance
+2) Or use another way: 
+	a) Pass a DBContext instance as a parameter of AbstractRepository's constructor
+	EX: public ProductRepository(ShopOnlineDbContext _context) : base (context) {}
+	b) Want use another Repository with the same instance, then pass this Context
+	EX: CategoryRepository cateRepo = new CategoryRepository(_context);
+
 #Install Entity Framework Core
 - Microsoft.EntityFrameworkCore.SqlServer 3.1.10
 - Microsoft.EntityFrameworkCore.Design 3.1.10
@@ -24,6 +35,9 @@
 	5) Script-Migration		//generate SQL for all migrations
 	4) Script-Migration -From <name_migration_without_time> -To <name_migration_without_time>	//(from,to]: generate SQL from To_migration
 	==>> When execute migration command, the OnModelCreating function in ShopOnlineDBContext will be run.
+
+#Git
+	1) Don't need push "package" folder to Git. Visual Studio has feature "Restore Package".
 
 #Knowledge - Mistake
 - FLUENT API: https://www.learnentityframeworkcore.com/configuration/fluent-api

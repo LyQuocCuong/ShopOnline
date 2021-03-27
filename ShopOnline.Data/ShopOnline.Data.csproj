@@ -203,6 +203,7 @@
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="Configurations\UserRoleConfiguration.cs" />
     <Compile Include="DataSeeding\ModelBuilderExtensions.cs" />
+    <Compile Include="Dtos\ProductCreateDto.cs" />
     <Compile Include="EF\ShopOnlineContextFactory.cs" />
     <Compile Include="EF\ShopOnlineDBContext.cs" />
     <Compile Include="Entities\ProductInCategory.cs" />
@@ -234,6 +235,10 @@
     </Compile>
     <Compile Include="Migrations\ShopOnlineDBContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Definition\AbstractRepository.cs" />
+    <Compile Include="Repositories\Definition\IRepository.cs" />
+    <Compile Include="Repositories\Definition\ShopOnlineRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

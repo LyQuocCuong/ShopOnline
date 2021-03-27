@@ -40,8 +40,8 @@ namespace ShopOnline.Data.EF
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
 
-            //Seeding Data
-            modelBuilder.Seed();
+            ////Seeding Data
+            //modelBuilder.Seed();
         }
 
         DbSet<Cart> Carts { get; set; }

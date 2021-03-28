@@ -331,10 +331,6 @@
     <Compile Include="Migrations\20210328075925_setup-identity-tables.designer.cs">
       <DependentUpon>20210328075925_setup-identity-tables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210328092120_xxx.cs" />
-    <Compile Include="Migrations\20210328092120_xxx.designer.cs">
-      <DependentUpon>20210328092120_xxx.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\ShopOnlineDBContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Definition\AbstractRepository.cs" />

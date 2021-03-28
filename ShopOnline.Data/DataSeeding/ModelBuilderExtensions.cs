@@ -12,8 +12,8 @@ namespace ShopOnline.Data.DataInit
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SysRole>().HasData(
-                new SysRole()
+            modelBuilder.Entity<SYS_ROLE>().HasData(
+                new SYS_ROLE()
                 {
                     Id = Guid.NewGuid(),
                     Name = "admin",
@@ -22,8 +22,8 @@ namespace ShopOnline.Data.DataInit
                     IsDeleted = false,
                 }
             );
-            modelBuilder.Entity<SysSetting>().HasData(
-                new SysSetting()
+            modelBuilder.Entity<SYS_SETTING>().HasData(
+                new SYS_SETTING()
                 {
                     Key = Guid.Parse("1beb61cd-b138-4117-9d61-09e46d7b4850").ToString(),
                     Value = "123",

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ShopOnline.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class SysRole : IdentityRole<Guid>
+    public class SYS_ACTION
     {
-        public string Description { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public ICollection<SysPermission> SysPermissions { get; set; }
+        public ICollection<SYS_PERMISSION> SysPermissions { get; set; }
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class ContactConfiguration : IEntityTypeConfiguration<Contact>
+    public class ContactConfiguration : IEntityTypeConfiguration<CONTACT>
     {
-        public void Configure(EntityTypeBuilder<Contact> builder)
+        public void Configure(EntityTypeBuilder<CONTACT> builder)
         {
             builder.ToTable("Contacts");
             builder.HasKey(s => s.Id);

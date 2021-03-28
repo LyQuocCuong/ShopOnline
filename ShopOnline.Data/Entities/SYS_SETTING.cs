@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class SysSetting
+    public class SYS_SETTING
     {
         public string Key { get; set; }
         public string Value { get; set; }

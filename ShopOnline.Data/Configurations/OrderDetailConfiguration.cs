@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class OrderDetailConfiguration : IEntityTypeConfiguration<OrderDetail>
+    public class OrderDetailConfiguration : IEntityTypeConfiguration<ORDER_DETAIL>
     {
-        public void Configure(EntityTypeBuilder<OrderDetail> builder)
+        public void Configure(EntityTypeBuilder<ORDER_DETAIL> builder)
         {
             builder.ToTable("OrderDetails");
             builder.HasKey(x => x.Id);

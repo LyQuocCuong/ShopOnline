@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Entities
+namespace ShopOnline.Data.Dtos
 {
-    public class PRODUCT
+    public class ProductUpdateDto
     {
         public Guid Id { get; set; }
         public double OriginalPrice { get; set; }
@@ -17,11 +17,5 @@ namespace ShopOnline.Data.Entities
         public ProductStatus Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsDeleted { get; set; }
-
-        //inverse navigation property
-        public ICollection<CART> Carts { get; set; }
-        public ICollection<PRODUCT_IN_CATEGORY> ProductInCategories { get; set; } //Many-To-Many
-        public ICollection<ORDER_DETAIL> OrderDetails { get; set; }
-        public ICollection<PRODUCT_TRANSLATION> ProductTranslations { get; set; }
     }
 }

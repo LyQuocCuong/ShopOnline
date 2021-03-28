@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class ProductTranslationConfiguration : IEntityTypeConfiguration<ProductTranslation>
+    public class ProductTranslationConfiguration : IEntityTypeConfiguration<PRODUCT_TRANSLATION>
     {
-        public void Configure(EntityTypeBuilder<ProductTranslation> builder)
+        public void Configure(EntityTypeBuilder<PRODUCT_TRANSLATION> builder)
         {
             builder.ToTable("ProductTranslations");
             builder.HasKey(x => x.Id);

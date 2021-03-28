@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class SysUserConfiguration : IEntityTypeConfiguration<SysUser>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<SysUser> builder)
         {
-            builder.ToTable("Users");
+            builder.ToTable("SysUsers");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.FullName).IsRequired();
-            builder.Property(x => x.Username).IsRequired();
-            builder.Property(x => x.Password).IsRequired();
+            builder.Property(x => x.UserName).IsRequired();
+            builder.Property(x => x.PasswordHash).IsRequired();
             builder.Property(x => x.Status).IsRequired();
             builder.Property(x => x.LastLoginDate).IsRequired();
             builder.Property(s => s.CreatedDate).IsRequired();

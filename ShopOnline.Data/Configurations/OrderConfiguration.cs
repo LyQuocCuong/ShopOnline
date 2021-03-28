@@ -15,7 +15,7 @@ namespace ShopOnline.Data.Configurations
         {
             builder.ToTable("Orders");
             builder.HasKey(s => s.Id);
-            builder.HasOne(s => s.User).WithMany(s => s.Orders).HasForeignKey(s => s.UserId);
+            builder.HasOne(s => s.SysUser).WithMany(s => s.Orders).HasForeignKey(s => s.UserId);
             builder.Property(s => s.OrderDate).IsRequired();
             builder.Property(s => s.ShipAddress).IsRequired();
             builder.Property(s => s.Status).IsRequired();

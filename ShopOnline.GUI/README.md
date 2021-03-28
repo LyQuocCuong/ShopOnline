@@ -85,10 +85,29 @@
 		}
 	+ Revert Migration is still effect
 
+- IndentityDbContext
+	+ Install package "Microsoft.AspNetCore.Identity"
+	+ Inherrit from DbContext => has all feature of DbContext.
+	+ Support for identty purpose (Default classes: IdentityUser, IdentityRole, ...). 
+	+ Has 3 generic classes with the SAME NAME: 
+		1) Class_1 : DbContext (receive 4 => using 4 params)
+		=> Need to pass 4 instances of "User, UserClaim, UserLogin, UserTokem" DbSets
+		2) Class_2 : Class_1 (receive 7 => using 7 params) [BEST FEXIBLE => can custom 7 DbSets]
+		=> Need to pass 7 instances of "Role, UserRole, RoleClaims" + All Class_1 DbSets
+		3) Class_3 : Class_2 (receive 2 => using 7 params)
+		=> Need to pass 2 instances of "User and Role" and 
+			5 remaining Dbsets is default (so you CAN NOT CUSTOM this 5 classes)
+	=> So you can use which class you want to use
+	=> Why do I use Class_3 ?
+		- I can CUSTOM "IdentityUser" and "IdentityRole" classes
+	    - That why we MUST declare 5 DbSets (UserClaim, UserLogin, UserToken, UserClaims, UserRole)
 
-
-
-
-
-
+- Using context.Database.Migrate() vs context.Database.EnsureCreated()
+	+ context.Database.Migrate()
+		1) Create Db if it does not already exist
+		2) Apply migration files
+	+ context.Database.EnsureCreated()
+		1) Create Db if it does not already exist
+			=> new DB CAN NOT be updated by migrations file.
+		2) DON'T Apply migration files
 

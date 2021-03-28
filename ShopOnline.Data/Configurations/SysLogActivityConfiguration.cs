@@ -15,7 +15,7 @@ namespace ShopOnline.Data.Configurations
         {
             builder.ToTable("SysLogActivities");
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.User).WithMany(x => x.SysLogActivities).HasForeignKey(x => x.UserId);
+            builder.HasOne(x => x.SysUser).WithMany(x => x.SysLogActivities).HasForeignKey(x => x.UserId);
             builder.Property(x => x.SysFeatureName).IsRequired();
             builder.Property(x => x.SysFeatureName).IsRequired();
             builder.Property(s => s.CreatedDate).IsRequired();

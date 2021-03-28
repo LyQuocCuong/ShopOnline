@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ShopOnline.Data.Configurations;
 using ShopOnline.Data.DataInit;
 using ShopOnline.Data.Entities;
@@ -7,14 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebAction = ShopOnline.Data.Entities.SysAction;
 
 namespace ShopOnline.Data.EF
 {
-    public class ShopOnlineDBContext : DbContext
+    public class ShopOnlineDBContext : IdentityDbContext<SysUser, SysRole, Guid>
     {
         public ShopOnlineDBContext(DbContextOptions options) : base(options)
         {
+            //this.Database.Migrate();
+            //this.Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,10 +38,16 @@ namespace ShopOnline.Data.EF
             modelBuilder.ApplyConfiguration(new SysFeatureConfiguration());
             modelBuilder.ApplyConfiguration(new SysLogActivityConfiguration());
             modelBuilder.ApplyConfiguration(new SysPermissionConfiguration());
-            modelBuilder.ApplyConfiguration(new SysRoleConfiguration());
             modelBuilder.ApplyConfiguration(new SysSettingConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+
+            // 7 classes of IdentityDBContext
+            modelBuilder.ApplyConfiguration(new SysUserConfiguration());
+            modelBuilder.ApplyConfiguration(new SysUserClaimConfiguration());
+            modelBuilder.ApplyConfiguration(new SysUserLoginConfiguration());
+            modelBuilder.ApplyConfiguration(new SysUserRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new SysUserTokenConfiguration());
+            modelBuilder.ApplyConfiguration(new SysRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new SysRoleClaimConfiguration());
 
             ////Seeding Data
             //modelBuilder.Seed();
@@ -60,7 +69,6 @@ namespace ShopOnline.Data.EF
         DbSet<SysLogActivity> SysLogActivities { get; set; }
         DbSet<SysPermission> SysPermissions { get; set; }
         DbSet<SysRole> SysRoles { get; set; }
-        DbSet<User> Users { get; set; }
-        DbSet<UserRole> UserRoles { get; set; }
+        DbSet<SysUser> SysUsers { get; set; }
     }
 }

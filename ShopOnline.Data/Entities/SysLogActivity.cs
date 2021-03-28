@@ -17,6 +17,6 @@ namespace ShopOnline.Data.Entities
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public User User { get; set; }
+        public SysUser SysUser { get; set; }
     }
 }

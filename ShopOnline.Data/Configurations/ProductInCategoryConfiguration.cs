@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class ProductInCategoryConfiguration : IEntityTypeConfiguration<ProductInCategory>
+    public class ProductInCategoryConfiguration : IEntityTypeConfiguration<PRODUCT_IN_CATEGORY>
     {
-        public void Configure(EntityTypeBuilder<ProductInCategory> builder)
+        public void Configure(EntityTypeBuilder<PRODUCT_IN_CATEGORY> builder)
         {
+            builder.ToTable("ProductInCategory");
             builder.HasKey(s => new { s.CategoryId, s.ProductId });
             builder.HasOne(s => s.Product).WithMany(s => s.ProductInCategories).HasForeignKey(s => s.ProductId);
             builder.HasOne(s => s.Category).WithMany(s => s.ProductInCategories).HasForeignKey(s => s.CategoryId);

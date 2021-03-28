@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.EF
 {
-    public class ShopOnlineDBContext : IdentityDbContext<SysUser, SysRole, Guid>
+    public class ShopOnlineDBContext : IdentityDbContext<SYS_USER, SYS_ROLE, Guid>
     {
         public ShopOnlineDBContext(DbContextOptions options) : base(options)
         {
@@ -53,22 +53,22 @@ namespace ShopOnline.Data.EF
             //modelBuilder.Seed();
         }
 
-        DbSet<Cart> Carts { get; set; }
-        DbSet<Category> Categories { get; set; }
-        DbSet<CategoryTranslation> CategoryTranslations { get; set; }
-        DbSet<Contact> Contacts { get; set; }
-        DbSet<Language> Languages { get; set; }
-        DbSet<Order> Orders { get; set; }
-        DbSet<OrderDetail> OrderDetails { get; set; }
-        DbSet<Product> Products { get; set; }
-        DbSet<ProductTranslation> ProductTranslations { get; set; }
-        DbSet<Promotion> Promotions { get; set; }
-        DbSet<SysAction> SysActions { get; set; }
-        DbSet<SysSetting> SysConfigurations { get; set; }
-        DbSet<SysFeature> SysFeatures { get; set; }
-        DbSet<SysLogActivity> SysLogActivities { get; set; }
-        DbSet<SysPermission> SysPermissions { get; set; }
-        DbSet<SysRole> SysRoles { get; set; }
-        DbSet<SysUser> SysUsers { get; set; }
+        DbSet<CART> Carts { get; set; }
+        DbSet<CATEGORY> Categories { get; set; }
+        DbSet<CATEGORY_TRANSLATION> CategoryTranslations { get; set; }
+        DbSet<CONTACT> Contacts { get; set; }
+        DbSet<LANGUAGE> Languages { get; set; }
+        DbSet<ORDER> Orders { get; set; }
+        DbSet<ORDER_DETAIL> OrderDetails { get; set; }
+        DbSet<PRODUCT> Products { get; set; }
+        DbSet<PRODUCT_TRANSLATION> ProductTranslations { get; set; }
+        DbSet<PROMOTION> Promotions { get; set; }
+        DbSet<SYS_ACTION> SysActions { get; set; }
+        DbSet<SYS_SETTING> SysConfigurations { get; set; }
+        DbSet<SYS_FEATURE> SysFeatures { get; set; }
+        DbSet<SYS_LOG_ACTIVITY> SysLogActivities { get; set; }
+        DbSet<SYS_PERMISSION> SysPermissions { get; set; }
+        DbSet<SYS_ROLE> SysRoles { get; set; }
+        DbSet<SYS_USER> SysUsers { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class Language
+    public class LANGUAGE
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,7 @@ namespace ShopOnline.Data.Entities
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public ICollection<CategoryTranslation> CategoryTranslations { get; set; }
-        public ICollection<ProductTranslation> ProductTranslations { get; set; }
+        public ICollection<CATEGORY_TRANSLATION> CategoryTranslations { get; set; }
+        public ICollection<PRODUCT_TRANSLATION> ProductTranslations { get; set; }
     }
 }

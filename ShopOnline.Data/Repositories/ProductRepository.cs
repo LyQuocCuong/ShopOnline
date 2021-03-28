@@ -9,20 +9,21 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Repositories
 {
-    public class ProductRepository : AbstractRepository<Product>
+    public class ProductRepository : AbstractRepository<PRODUCT>
     {
         public ProductRepository(ShopOnlineRepository repository): base(repository)
         {
                
         }
 
-        public void CreateProduct(ProductCreateDto productDto)
+        public bool CreateProduct(ProductCreateDto productDto)
         {
-            Product newProduct = new Product()
+            PRODUCT newProduct = new PRODUCT()
             {
 
             };
             DataSet.Add(newProduct);
+            return true;
         }
     }
 }

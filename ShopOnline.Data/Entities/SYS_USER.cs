@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class SysUser : IdentityUser<Guid>
+    public class SYS_USER : IdentityUser<Guid>
     {
         public string FullName { get; set; }
         public DateTime DOB { get; set; }
@@ -18,7 +18,7 @@ namespace ShopOnline.Data.Entities
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public ICollection<Order> Orders { get; set; }
-        public ICollection<SysLogActivity> SysLogActivities { get; set; }
+        public ICollection<ORDER> Orders { get; set; }
+        public ICollection<SYS_LOG_ACTIVITY> SysLogActivities { get; set; }
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysRoleConfiguration : IEntityTypeConfiguration<SysRole>
+    public class SysRoleConfiguration : IEntityTypeConfiguration<SYS_ROLE>
     {
-        public void Configure(EntityTypeBuilder<SysRole> builder)
+        public void Configure(EntityTypeBuilder<SYS_ROLE> builder)
         {
             builder.ToTable("SysRoles");
             builder.HasKey(s => s.Id);

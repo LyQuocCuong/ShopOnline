@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class Promotion
+    public class PROMOTION
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

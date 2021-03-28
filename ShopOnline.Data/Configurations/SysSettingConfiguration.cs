@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysSettingConfiguration : IEntityTypeConfiguration<SysSetting>
+    public class SysSettingConfiguration : IEntityTypeConfiguration<SYS_SETTING>
     {
-        public void Configure(EntityTypeBuilder<SysSetting> builder)
+        public void Configure(EntityTypeBuilder<SYS_SETTING> builder)
         {
             builder.ToTable("SysSettings");
             builder.HasKey(s => s.Key);

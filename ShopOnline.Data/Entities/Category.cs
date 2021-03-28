@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class Category
+    public class CATEGORY
     {
         public Guid Id { get; set; }
         public Guid? ParentId { get; set; }
@@ -18,12 +18,12 @@ namespace ShopOnline.Data.Entities
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public ICollection<ProductInCategory> ProductInCategories { get; set; } //Many-To-Many
-        public ICollection<CategoryTranslation> CategoryTranslations { get; set; }
+        public ICollection<PRODUCT_IN_CATEGORY> ProductInCategories { get; set; } //Many-To-Many
+        public ICollection<CATEGORY_TRANSLATION> CategoryTranslations { get; set; }
         
         #region Self reference association
-        public Category ParentCategory { get; set; }
-        public ICollection<Category> ChildrenCategories { get; set; }
+        public CATEGORY ParentCategory { get; set; }
+        public ICollection<CATEGORY> ChildrenCategories { get; set; }
         #endregion
     }
 }

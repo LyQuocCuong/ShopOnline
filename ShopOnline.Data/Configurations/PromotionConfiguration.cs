@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class PromotionConfiguration : IEntityTypeConfiguration<Promotion>
+    public class PromotionConfiguration : IEntityTypeConfiguration<PROMOTION>
     {
-        public void Configure(EntityTypeBuilder<Promotion> builder)
+        public void Configure(EntityTypeBuilder<PROMOTION> builder)
         {
             builder.ToTable("Promotions");
             builder.HasKey(x => x.Id);

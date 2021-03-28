@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysLogActivityConfiguration : IEntityTypeConfiguration<SysLogActivity>
+    public class SysLogActivityConfiguration : IEntityTypeConfiguration<SYS_LOG_ACTIVITY>
     {
-        public void Configure(EntityTypeBuilder<SysLogActivity> builder)
+        public void Configure(EntityTypeBuilder<SYS_LOG_ACTIVITY> builder)
         {
             builder.ToTable("SysLogActivities");
             builder.HasKey(x => x.Id);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class SysPermission
+    public class SYS_PERMISSION
     {
         public Guid Id { get; set; }
         public Guid SysRoleId { get; set; }
@@ -16,8 +16,8 @@ namespace ShopOnline.Data.Entities
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public SysRole SysRole { get; set; }
-        public SysFeature SysFeature { get; set; }
-        public SysAction SysAction { get; set; }
+        public SYS_ROLE SysRole { get; set; }
+        public SYS_FEATURE SysFeature { get; set; }
+        public SYS_ACTION SysAction { get; set; }
     }
 }

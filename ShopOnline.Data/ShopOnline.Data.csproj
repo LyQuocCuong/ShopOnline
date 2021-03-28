@@ -296,27 +296,29 @@
     <Compile Include="Configurations\SysRoleClaimConfiguration.cs" />
     <Compile Include="Configurations\SysUserRoleConfiguration.cs" />
     <Compile Include="DataSeeding\ModelBuilderExtensions.cs" />
+    <Compile Include="Dtos\ProductViewDto.cs" />
+    <Compile Include="Dtos\ProductUpdateDto.cs" />
     <Compile Include="Dtos\ProductCreateDto.cs" />
     <Compile Include="EF\ShopOnlineContextFactory.cs" />
     <Compile Include="EF\ShopOnlineDBContext.cs" />
-    <Compile Include="Entities\ProductInCategory.cs" />
-    <Compile Include="Entities\SysAction.cs" />
-    <Compile Include="Entities\Cart.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\CategoryTranslation.cs" />
-    <Compile Include="Entities\SysSetting.cs" />
-    <Compile Include="Entities\Contact.cs" />
-    <Compile Include="Entities\SysFeature.cs" />
-    <Compile Include="Entities\Language.cs" />
-    <Compile Include="Entities\Order.cs" />
-    <Compile Include="Entities\OrderDetail.cs" />
-    <Compile Include="Entities\SysPermission.cs" />
-    <Compile Include="Entities\Product.cs" />
-    <Compile Include="Entities\ProductTranslation.cs" />
-    <Compile Include="Entities\Promotion.cs" />
-    <Compile Include="Entities\SysRole.cs" />
-    <Compile Include="Entities\SysLogActivity.cs" />
-    <Compile Include="Entities\SysUser.cs" />
+    <Compile Include="Entities\PRODUCT_IN_CATEGORY.cs" />
+    <Compile Include="Entities\SYS_ACTION.cs" />
+    <Compile Include="Entities\CART.cs" />
+    <Compile Include="Entities\CATEGORY.cs" />
+    <Compile Include="Entities\CATEGORY_TRANSLATION.cs" />
+    <Compile Include="Entities\SYS_SETTING.cs" />
+    <Compile Include="Entities\CONTACT.cs" />
+    <Compile Include="Entities\SYS_FEATURE.cs" />
+    <Compile Include="Entities\LANGUAGE.cs" />
+    <Compile Include="Entities\ORDER.cs" />
+    <Compile Include="Entities\ORDER_DETAIL.cs" />
+    <Compile Include="Entities\SYS_PERMISSION.cs" />
+    <Compile Include="Entities\PRODUCT.cs" />
+    <Compile Include="Entities\PRODUCT_TRANSLATION.cs" />
+    <Compile Include="Entities\PROMOTION.cs" />
+    <Compile Include="Entities\SYS_ROLE.cs" />
+    <Compile Include="Entities\SYS_LOG_ACTIVITY.cs" />
+    <Compile Include="Entities\SYS_USER.cs" />
     <Compile Include="Enums\ProductStatus.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\SysStatus.cs" />
@@ -328,6 +330,10 @@
     <Compile Include="Migrations\20210328075925_setup-identity-tables.cs" />
     <Compile Include="Migrations\20210328075925_setup-identity-tables.designer.cs">
       <DependentUpon>20210328075925_setup-identity-tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20210328092120_xxx.cs" />
+    <Compile Include="Migrations\20210328092120_xxx.designer.cs">
+      <DependentUpon>20210328092120_xxx.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ShopOnlineDBContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

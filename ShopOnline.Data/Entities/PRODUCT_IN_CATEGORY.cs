@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class SysLogActivity
+    public class PRODUCT_IN_CATEGORY
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public Guid ClientId { get; set; }
-        public string SysFeatureName { get; set; }
-        public string SysActionName { get; set; }
+        public Guid CategoryId { get; set; }
+        public Guid ProductId { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public SysUser SysUser { get; set; }
+        public CATEGORY Category { get; set; }
+        public PRODUCT Product { get; set; }
     }
 }

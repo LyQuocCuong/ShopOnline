@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class CartConfiguration : IEntityTypeConfiguration<Cart>
+    public class CartConfiguration : IEntityTypeConfiguration<CART>
     {
-        public void Configure(EntityTypeBuilder<Cart> builder)
+        public void Configure(EntityTypeBuilder<CART> builder)
         {
             builder.ToTable("Carts"); //Name Table in DB
             builder.HasKey(s => s.Id); //Primary Key

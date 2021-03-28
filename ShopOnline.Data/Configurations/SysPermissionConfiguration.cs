@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysPermissionConfiguration : IEntityTypeConfiguration<SysPermission>
+    public class SysPermissionConfiguration : IEntityTypeConfiguration<SYS_PERMISSION>
     {
-        public void Configure(EntityTypeBuilder<SysPermission> builder)
+        public void Configure(EntityTypeBuilder<SYS_PERMISSION> builder)
         {
             builder.ToTable("SysPermissions");
             builder.HasKey(x => x.Id);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Entities
 {
-    public class OrderDetail
+    public class ORDER_DETAIL
     {
         public Guid Id { get; set; }
         public Guid OrderId { get; set; }
@@ -17,7 +17,7 @@ namespace ShopOnline.Data.Entities
         public bool IsDeleted { get; set; }
 
         //inverse navigation property
-        public Order Order { get; set; }
-        public Product Product { get; set; }
+        public ORDER Order { get; set; }
+        public PRODUCT Product { get; set; }
     }
 }

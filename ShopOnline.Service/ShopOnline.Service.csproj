@@ -41,7 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IServices\IPrivateProductService.cs" />
+    <Compile Include="Services\PrivateProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IServices\IPublicProductService.cs" />
+    <Compile Include="Services\PublicProductService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ShopOnline.Data\ShopOnline.Data.csproj">
+      <Project>{f289acaa-ed7d-4ea1-b03a-8135883cd626}</Project>
+      <Name>ShopOnline.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

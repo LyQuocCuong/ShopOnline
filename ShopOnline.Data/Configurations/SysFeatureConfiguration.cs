@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysFeatureConfiguration : IEntityTypeConfiguration<SysFeature>
+    public class SysFeatureConfiguration : IEntityTypeConfiguration<SYS_FEATURE>
     {
-        public void Configure(EntityTypeBuilder<SysFeature> builder)
+        public void Configure(EntityTypeBuilder<SYS_FEATURE> builder)
         {
             builder.ToTable("SysFeature");
             builder.HasKey(s => s.Id);

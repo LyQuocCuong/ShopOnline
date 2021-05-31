@@ -11,17 +11,25 @@ namespace ShopOnline.Service.Private.Services
 {
     public class PrivateProductService : IPrivateProductService
     {
+        private readonly ShopOnlineRepository _shopOnline;
+
+        public PrivateProductService(ShopOnlineRepository shopOnline)
+        {
+            _shopOnline = shopOnline;
+        }
+
         public bool Create(ProductCreateDto productCreateDto)
         {
-            using (ShopOnlineRepository repo = new ShopOnlineRepository())
+            try
             {
-                if (repo.PRODUCT_REPOSITORY.CreateProduct(productCreateDto))
-                {
-                    repo.SaveChanges();
-                    return true;
-                }
+                _shopOnline.PRODUCT_REPOSITORY.CreateProduct(productCreateDto);
+                _shopOnline.SaveChanges();
+            }
+            catch(Exception ex)
+            {
                 return false;
             }
+            return true;
         }
 
         public bool Delete(Guid productId)

@@ -4,10 +4,15 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopOnline.Data.EF;
+using ShopOnline.Service.Private.IServices;
+using ShopOnline.Service.Private.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ShopOnline.Data.Repositories.Definition;
 
 namespace ShopOnline.GUI
 {
@@ -23,7 +28,14 @@ namespace ShopOnline.GUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //MVC
             services.AddControllersWithViews();
+            //DI for DbContext
+            services.AddDbContext<ShopOnlineDBContext>(
+                options => options.UseSqlServer("name=ConnectionStrings:ShopOnlineDB"));
+            //DI for classes
+            services.AddTransient<IPrivateProductService, PrivateProductService>();
+            services.AddTransient<ShopOnlineRepository, ShopOnlineRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

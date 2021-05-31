@@ -1,29 +1,50 @@
 ﻿#Structure Project
 - Data Driven Design (3 layers -> Data - Business(Service) - GUI)
-- .Net Framework 5.0
+- .Net 5.0 (Difference: .Net Framework, .Net Core)
 
 #Structure Data Layer
-- AbstractRepository : IRepository
-- ProductRepository : AbstractRepository
+- Layer 1: IRepository
+- Layer 2: AbstractRepository : IRepository
+- Layer 3: "Entity"-Repository : AbstractRepository
 1) ShopOnlineRepository : IDisposable 
-	=> help connect all repositories using same the DBContext instance
+	+ "_context" variable
+	=> help connect all repositories using a same the DBContext instance
 2) Or use another way: 
 	a) Pass a DBContext instance as a parameter of AbstractRepository's constructor
 	EX: public ProductRepository(ShopOnlineDbContext _context) : base (context) {}
 	b) Want use another Repository with the same instance, then pass this Context
 	EX: CategoryRepository cateRepo = new CategoryRepository(_context);
 
-#Install Entity Framework Core
+#Module Backend API
+1) [Route("api/[controller]")]
+	public class CustomerController : ControllerBase
+	=> [controller] meaning name of current controller
+	=> Route: api/customer
+
+#Install Entity Framework Core (Data Layer)
 - Microsoft.EntityFrameworkCore.SqlServer 3.1.10
 - Microsoft.EntityFrameworkCore.Design 3.1.10
 - Microsoft.EntityFrameworkCore.Tools 3.1.10
-  => Enables these commonly used commands (Add-Migration, Drop-Database, Remove-Migration, Scaffold-DbContext, Update-Database...)
+  => Enables these commonly used commands (Add-Migration, Drop-Database, 
+  Remove-Migration, Scaffold-DbContext, Update-Database...)
+
+#Setup DI for DBContext
+- Install packages for Application Layer
+	+	Microsoft.EntityFrameworkCore.SqlServer 3.1.10
+	+	Microsoft.AspNetCore.Identity.EntityFrameworkCore 3.1.10
+- Startup.cs file
+	+	using Microsoft.EntityFrameworkCore;
+	+	ConfigureServices func
+		-	services.AddDbContext<ShopOnlineDBContext>
+				(options => options.UseSqlServer("name=ConnectionStrings:ShopOnlineDB"));
+	+ ConnectionStrings defined in appsettings.json file
 
 #Migration Init
 - Use "a design-time factory" class to run
 	+ Implement "IDesignTimeDbContextFactory" interface
-	=> If a class implementing this interface is found in either the same project as the derived DbContext or in the application's startup project, 
-	the tools bypass the other ways of creating the DbContext and use the design-time factory instead.
+	=> If a class implementing this interface is found in either the same project as the derived DbContext 
+	or in the application's startup project, the tools bypass the other ways of creating the DbContext 
+	and use the design-time factory instead.
 - Install:
 	+ Microsoft.Extensions.Configuration.FileExtensions
 	+ Microsoft.Extensions.Configuration.Json
@@ -43,10 +64,10 @@
 - FLUENT API: https://www.learnentityframeworkcore.com/configuration/fluent-api
 	+ Usage:
 		0) Overried function in ShopOnlineDBContext "protected override void OnModelCreating(ModelBuilder modelBuilder)"
-		1) Create a Configuration class (Ex: SysSettingConfiguration)
-		2) Implement "IEntityTypeConfiguration<SysSetting>" interface
+		1) Create a new Entity Configuration class (Ex: "EntityName"Configuration)
+		2) This new class implements "IEntityTypeConfiguration<SysSetting>" interface
 		3) Define property: ToTable(), HasKey(), IsRequired(),...
-		4) Apply to OnModelCreating function "modelBuilder.ApplyConfiguration(new CartConfiguration());"
+		4) Apply to "OnModelCreating" function "modelBuilder.ApplyConfiguration(new CartConfiguration());"
 	+ Relation One-to-One
 	+ Relation One-to-Zero-or-One
 	+ Relation One-to-Many: Product-Cart, Order-OrderDetail

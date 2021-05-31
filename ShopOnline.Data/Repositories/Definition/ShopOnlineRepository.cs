@@ -11,9 +11,9 @@ namespace ShopOnline.Data.Repositories.Definition
     {
         public ShopOnlineDBContext _context;
 
-        public ShopOnlineRepository()
+        public ShopOnlineRepository(ShopOnlineDBContext context)
         {
-
+            _context = context;
         }
 
         public bool SaveChanges()

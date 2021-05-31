@@ -22,7 +22,7 @@ namespace ShopOnline.Data.Repositories.Definition
             {
                 _context.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }

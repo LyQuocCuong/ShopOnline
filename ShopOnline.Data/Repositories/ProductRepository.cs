@@ -12,9 +12,9 @@ namespace ShopOnline.Data.Repositories
 {
     public class ProductRepository : AbstractRepository<PRODUCT>
     {
-        public ProductRepository(ShopOnlineRepository repository): base(repository)
+        public ProductRepository(ShopOnlineRepository repository) : base(repository)
         {
-               
+
         }
 
         public bool CreateProduct(ProductCreateDto productDto)

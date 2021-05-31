@@ -20,7 +20,7 @@ namespace ShopOnline.Data.Entities
         //inverse navigation property
         public ICollection<PRODUCT_IN_CATEGORY> ProductInCategories { get; set; } //Many-To-Many
         public ICollection<CATEGORY_TRANSLATION> CategoryTranslations { get; set; }
-        
+
         #region Self reference association
         public CATEGORY ParentCategory { get; set; }
         public ICollection<CATEGORY> ChildrenCategories { get; set; }

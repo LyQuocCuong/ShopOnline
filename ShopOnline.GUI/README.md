@@ -46,8 +46,8 @@
 	or in the application's startup project, the tools bypass the other ways of creating the DbContext 
 	and use the design-time factory instead.
 - Install:
-	+ Microsoft.Extensions.Configuration.FileExtensions
-	+ Microsoft.Extensions.Configuration.Json
+	+ Microsoft.Extensions.Configuration.FileExtensions 3.1.10
+	+ Microsoft.Extensions.Configuration.Json 3.1.10
 
 #Migration Commands
 	1) Add-Migration <name_migration>   //create new migration

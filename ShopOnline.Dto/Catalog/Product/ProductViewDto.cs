@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Dtos
+namespace ShopOnline.Dto.Catalog.Product
 {
     public class ProductViewDto
     {

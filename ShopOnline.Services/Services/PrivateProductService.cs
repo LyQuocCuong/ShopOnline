@@ -1,11 +1,7 @@
-﻿using ShopOnline.Data.Dtos;
-using ShopOnline.Data.Repositories.Definition;
+﻿using ShopOnline.Data.Repositories.Definition;
+using ShopOnline.Dto.Catalog.Product;
 using ShopOnline.Service.Private.IServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShopOnline.Service.Private.Services
 {

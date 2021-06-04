@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Data.Dtos
+namespace ShopOnline.Dto.Catalog.Product
 {
-    public class ProductCreateDto
+    public class ProductUpdateDto
     {
         public Guid Id { get; set; }
         public double OriginalPrice { get; set; }

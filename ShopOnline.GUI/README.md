@@ -24,9 +24,11 @@
 #Install Entity Framework Core (Data Layer)
 - Microsoft.EntityFrameworkCore.SqlServer 3.1.10
 - Microsoft.EntityFrameworkCore.Design 3.1.10
-- Microsoft.EntityFrameworkCore.Tools 3.1.10
+- Microsoft.EntityFrameworkCore.Tools 3.1.10 (required: Design package)
   => Enables these commonly used commands (Add-Migration, Drop-Database, 
   Remove-Migration, Scaffold-DbContext, Update-Database...)
+  => That's why running migration need to SetStartUpProject to ShopOnline.Data
+  => Because ShopOnline.Application doesn't have enough pakages.
 
 #Setup DI for DBContext
 - Install packages for Application Layer
@@ -66,16 +68,19 @@
 		0) Overried function in ShopOnlineDBContext "protected override void OnModelCreating(ModelBuilder modelBuilder)"
 		1) Create a new Entity Configuration class (Ex: "EntityName"Configuration)
 		2) This new class implements "IEntityTypeConfiguration<SysSetting>" interface
-		3) Define property: ToTable(), HasKey(), IsRequired(),...
+		3) Define property: ToTable(), HasKey(), IsRequired(), HasDefaultValue(), ...
 		4) Apply to "OnModelCreating" function "modelBuilder.ApplyConfiguration(new CartConfiguration());"
 	+ Relation One-to-One
 	+ Relation One-to-Zero-or-One
-	+ Relation One-to-Many: Product-Cart, Order-OrderDetail
-		- One(A) to Many(B) 
-		=> Write configuration inside (B)
-		1) Table (A): public ICollection<OrderDetail> OrderDetails { get; set; }
-		2) Table (B): public Order Order { get; set; }
-		3) Inside Config (B): builder.HasOne(x => x.Order).WithMany(x => x.OrderDetails).HasForeignKey(x => x.OrderId);
+	+ Relation One-to-Many: Product-Cart, Order-OrderDetail, Product-ProductImage
+		- One(Order) to Many(OrderDetail) 
+		=> Write configuration inside (OrderDetail)
+		1) Table (Order): 
+		   + public ICollection<OrderDetail> OrderDetails { get; set; }
+		2) Table (OrderDetail): 
+		   + public Order Order { get; set; }
+		3) Inside Config (OrderDetailConfiguration): 
+		   + builder.HasOne(x => x.Order).WithMany(x => x.OrderDetails).HasForeignKey(x => x.OrderId);
 	+ Relation Many-to-Many: Category-Product, User-Role
 		- Many(A) to Many(B) 
 		=> Create a new Table(C)

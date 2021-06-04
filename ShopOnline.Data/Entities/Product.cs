@@ -23,5 +23,6 @@ namespace ShopOnline.Data.Entities
         public ICollection<PRODUCT_IN_CATEGORY> ProductInCategories { get; set; } //Many-To-Many
         public ICollection<ORDER_DETAIL> OrderDetails { get; set; }
         public ICollection<PRODUCT_TRANSLATION> ProductTranslations { get; set; }
+        public ICollection<PRODUCT_IMAGE> ProductImages { get; set; }
     }
 }

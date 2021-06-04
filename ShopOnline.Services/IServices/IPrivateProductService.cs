@@ -1,9 +1,5 @@
-﻿using ShopOnline.Data.Dtos;
+﻿using ShopOnline.Dto.Catalog.Product;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShopOnline.Service.Private.IServices
 {

@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShopOnline.Data\ShopOnline.Data.csproj" />
-    <ProjectReference Include="..\ShopOnline.Dto\ShopOnline.Dto.csproj" />
     <ProjectReference Include="..\ShopOnline.Utilities\ShopOnline.Utilities.csproj" />
   </ItemGroup>
 

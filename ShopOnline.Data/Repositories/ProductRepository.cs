@@ -1,12 +1,8 @@
-﻿using ShopOnline.Data.Dtos;
-using ShopOnline.Data.Entities;
+﻿using ShopOnline.Data.Entities;
 using ShopOnline.Data.Enums;
 using ShopOnline.Data.Repositories.Definition;
+using ShopOnline.Dto.Catalog.Product;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Repositories
 {

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ShopOnline.Dto\ShopOnline.Dto.csproj" />
     <ProjectReference Include="..\ShopOnline.Services\ShopOnline.Services.csproj" />
     <ProjectReference Include="..\ShopOnline.Utilities\ShopOnline.Utilities.csproj" />
   </ItemGroup>

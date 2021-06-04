@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ShopOnline.Data.Dtos;
+using ShopOnline.Dto.Catalog.Product;
 using ShopOnline.GUI.Models;
 using ShopOnline.Service.Private.IServices;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ShopOnline.GUI.Controllers
 {

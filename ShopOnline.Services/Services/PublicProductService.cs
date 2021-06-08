@@ -9,7 +9,7 @@ namespace ShopOnline.Service.Services
     {
         public List<ProductViewDto> GetAll(Guid categoryId)
         {
-            throw new NotImplementedException();
+            return new List<ProductViewDto>();
         }
     }
 }

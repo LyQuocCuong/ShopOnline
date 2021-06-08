@@ -137,3 +137,17 @@
 			=> new DB CAN NOT be updated by migrations file.
 		2) DON'T Apply migration files
 
+#Install Swagger(OpenAPI)
+	- Install:
+		+ SwashBuckle.AspNetCore 6.1.4 (>= 5.0.0 support .NetCore 3.1)
+		(Inside: SwaggerUI, SwaggerGen)
+	- Meaning:
+		+ Swagger and OpenAPI name can be used interchangeably.
+		+ Swagger describle REST APIs
+		+ 2 main implementations for .Net are Swashbuckle and NSwag
+		+ Each public action method in your controllers can be tested from the UI (SwaggerUI)
+	- Note Usage:
+		+ Action methods MUST RETURN DATA, HTTPStatus. NOT VIEW().
+		+ ControllerName: Use [ApiController], [Route(api/[controller])]. 
+		  [controler] => auto map ControllerName
+		+ Action method: Use [HttpGet("Index")], [HttpPost], [HttpPut], [HttpDelete]

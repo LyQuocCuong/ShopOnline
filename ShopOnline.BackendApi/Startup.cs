@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using ShopOnline.Data.EF;
 using ShopOnline.Service.Public.IServices;
 using ShopOnline.Service.Services;
@@ -36,8 +37,13 @@ namespace ShopOnline.BackendApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            #region third party - Serilog
+            //Add Provider
+            loggerFactory.AddFile("Logs/mylog-{Date}.txt");
+            #endregion
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

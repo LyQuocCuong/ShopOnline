@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ShopOnline.Service.Public.IServices;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,19 @@ namespace ShopOnline.BackendApi.Controllers
     [ApiController]
     public class ProductController : Controller
     {
+        private readonly ILogger _logger;
         private readonly IPublicProductService _publicProductService;
 
-        public ProductController(IPublicProductService publicProductService)
+        public ProductController(ILogger<ProductController> logger, IPublicProductService publicProductService)
         {
+            _logger = logger;
             _publicProductService = publicProductService;
         }
 
         [HttpGet("Index")]
         public IActionResult Index()
         {
+            _logger.LogInformation("Hello");
             return Ok(_publicProductService.GetAll(Guid.NewGuid()));
         }
     }

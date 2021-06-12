@@ -151,3 +151,24 @@
 		+ ControllerName: Use [ApiController], [Route(api/[controller])]. 
 		  [controler] => auto map ControllerName
 		+ Action method: Use [HttpGet("Index")], [HttpPost], [HttpPut], [HttpDelete]
+
+#Install Serilog - Third party in Project
+	- Installing NuGet package "Serilog.Extensions.Logging.File" 2.0.0
+	- Meaning:
+		+ Implementing Logging in .NET CORE SDK needs 2 parts:
+			1) LOGGING API:
+				+ 3 interfaces: ILogger (can redefine) <= ILoggerFactory (defined) => ILoggerProvider (can redefine) 
+				+ A set of APIs create logs
+				+ Included in "Microsoft.Extensions.Logging" namespace
+			2) LOGGING PROVIDER:
+				+ Redefine: ILoggerProvider, ILogger
+				+ WHERE to Store or Display logs: Console, File, Debug, ...
+				+ Third parties - Providers (collaborated with Microsoft): NLog, Serilog, Log4Net, ...
+		+ Implementing Logging in ASP.NET CORE
+			- Automatically included when creating project with default providers (Console, Debug)
+		+ Log Levels:
+			- Trace(0) < Debug < Information < Warning < Error < Critical(5)
+
+
+
+

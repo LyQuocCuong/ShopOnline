@@ -3,115 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopOnline.Data.EF;
 
 namespace ShopOnline.Data.Migrations
 {
     [DbContext(typeof(ShopOnlineDBContext))]
-    partial class ShopOnlineDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210617120513_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
-                {
-                    b.Property<Guid>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("S_ROLE_CLAIM");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("S_USER_CLAIM");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("S_USER_LOGIN");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.ToTable("S_USER_ROLE");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("S_USER_TOKEN");
-                });
 
             modelBuilder.Entity("ShopOnline.Data.Entities.CART", b =>
                 {
@@ -324,12 +232,7 @@ namespace ShopOnline.Data.Migrations
                     b.Property<int>("STATUS")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("S_USER_ID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("S_USER_ID");
 
                     b.ToTable("ORDER");
                 });
@@ -554,265 +457,6 @@ namespace ShopOnline.Data.Migrations
                     b.ToTable("PROMOTION");
                 });
 
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_ACTION", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IS_DELETED")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("NAME")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("S_ACTION");
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_FEATURE", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IS_DELETED")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("NAME")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("PARENT_ID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SORT_ORDER")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("STATUS")
-                        .HasColumnType("int");
-
-                    b.Property<string>("URL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PARENT_ID");
-
-                    b.ToTable("S_FEATURE");
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_LOG_ACTIVITY", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CLIENT_ID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IS_DELETED")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("S_ACTION_NAME")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("S_FEATURE_NAME")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("S_USER_ID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("S_USER_ID");
-
-                    b.ToTable("S_LOG_ACTIVITY");
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_PERMISSION", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IS_DELETED")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<Guid>("S_ACTION_ID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("S_FEATURE_ID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("S_ROLE_ID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("S_ACTION_ID");
-
-                    b.HasIndex("S_FEATURE_ID");
-
-                    b.HasIndex("S_ROLE_ID");
-
-                    b.ToTable("S_PERMISSION");
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_ROLE", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DESCRIPTION")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IS_DELETED")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("S_ROLE");
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_SETTING", b =>
-                {
-                    b.Property<string>("KEY")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IS_DELETED")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("VALUE")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("KEY");
-
-                    b.ToTable("S_SETTING");
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_USER", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CREATED_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FULL_NAME")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IS_DELETED")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<DateTime>("LAST_LOGIN_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("STATUS")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("S_USER");
-                });
-
             modelBuilder.Entity("ShopOnline.Data.Entities.CART", b =>
                 {
                     b.HasOne("ShopOnline.Data.Entities.PRODUCT", "PRODUCT")
@@ -840,15 +484,6 @@ namespace ShopOnline.Data.Migrations
                     b.HasOne("ShopOnline.Data.Entities.LANGUAGE", "LANGUAGE")
                         .WithMany("CATEGORY_TRANSLATIONS")
                         .HasForeignKey("LANGUAGE_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.ORDER", b =>
-                {
-                    b.HasOne("ShopOnline.Data.Entities.S_USER", "S_USER")
-                        .WithMany("ORDERS")
-                        .HasForeignKey("S_USER_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -903,43 +538,6 @@ namespace ShopOnline.Data.Migrations
                     b.HasOne("ShopOnline.Data.Entities.PRODUCT", "PRODUCT")
                         .WithMany("PRODUCT_TRANSLATIONS")
                         .HasForeignKey("PRODUCT_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_FEATURE", b =>
-                {
-                    b.HasOne("ShopOnline.Data.Entities.S_FEATURE", "PARENT_FEATURE")
-                        .WithMany("CHILD_FEATURES")
-                        .HasForeignKey("PARENT_ID");
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_LOG_ACTIVITY", b =>
-                {
-                    b.HasOne("ShopOnline.Data.Entities.S_USER", "S_USER")
-                        .WithMany("S_LOG_ACTIVITIES")
-                        .HasForeignKey("S_USER_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ShopOnline.Data.Entities.S_PERMISSION", b =>
-                {
-                    b.HasOne("ShopOnline.Data.Entities.S_ACTION", "S_ACTION")
-                        .WithMany("S_PERMISSIONS")
-                        .HasForeignKey("S_ACTION_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ShopOnline.Data.Entities.S_FEATURE", "S_FEATURE")
-                        .WithMany("S_PERMISSIONS")
-                        .HasForeignKey("S_FEATURE_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ShopOnline.Data.Entities.S_ROLE", "S_ROLE")
-                        .WithMany("S_PERMISSIONS")
-                        .HasForeignKey("S_ROLE_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

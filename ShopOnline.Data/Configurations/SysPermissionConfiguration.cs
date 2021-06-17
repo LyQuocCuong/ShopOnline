@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysPermissionConfiguration : IEntityTypeConfiguration<SYS_PERMISSION>
+    public class SysPermissionConfiguration : IEntityTypeConfiguration<S_PERMISSION>
     {
-        public void Configure(EntityTypeBuilder<SYS_PERMISSION> builder)
+        public void Configure(EntityTypeBuilder<S_PERMISSION> builder)
         {
-            builder.ToTable("SysPermissions");
-            builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.SysRole).WithMany(x => x.SysPermissions).HasForeignKey(x => x.SysRoleId);
-            builder.HasOne(x => x.SysFeature).WithMany(x => x.SysPermissions).HasForeignKey(x => x.SysFeatureId);
-            builder.HasOne(x => x.SysAction).WithMany(x => x.SysPermissions).HasForeignKey(x => x.SysActionId);
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("S_PERMISSION");
+            builder.HasKey(x => x.ID);
+            builder.HasOne(x => x.S_ROLE).WithMany(x => x.S_PERMISSIONS).HasForeignKey(x => x.S_ROLE_ID);
+            builder.HasOne(x => x.S_FEATURE).WithMany(x => x.S_PERMISSIONS).HasForeignKey(x => x.S_FEATURE_ID);
+            builder.HasOne(x => x.S_ACTION).WithMany(x => x.S_PERMISSIONS).HasForeignKey(x => x.S_ACTION_ID);
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

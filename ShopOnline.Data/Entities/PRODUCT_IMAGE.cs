@@ -8,15 +8,15 @@ namespace ShopOnline.Data.Entities
 {
     public class PRODUCT_IMAGE
     {
-        public Guid Id { get; set; }
-        public Guid ProductId { get; set; }
-        public string Caption { get; set; }
-        public string Path { get; set; }
-        public int SortOrder { get; set; }
-        public bool IsDefault { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public Guid ID { get; set; }
+        public Guid PRODUCT_ID { get; set; }
+        public string CAPTION { get; set; }
+        public string PATH { get; set; }
+        public int SORT_ORDER { get; set; }
+        public bool IS_DEFAULT { get; set; }
+        public DateTime CREATED_DATE { get; set; }
+        public bool IS_DELETED { get; set; }
 
-        public PRODUCT Product { get; set; }
+        public PRODUCT PRODUCT { get; set; }
     }
 }

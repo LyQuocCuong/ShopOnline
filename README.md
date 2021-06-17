@@ -2,6 +2,9 @@
 - Data Driven Design (3 layers -> Data - Business(Service) - GUI)
 - .Net 5.0 (Difference: .Net Framework, .Net Core)
 
+#Git
+	1) Don't need push "package" folder to Git. Visual Studio has feature "Restore Package".
+
 #Structure Data Layer
 - Layer 1: IRepository
 - Layer 2: AbstractRepository : IRepository
@@ -55,12 +58,16 @@
 	1) Add-Migration <name_migration>   //create new migration
 	2) Update-database [–Verbose]   //update db
 	3) Update-database <name_migration_without_time>    //revert migration
+	=> "Update-database 0" (REVERT AL migrations) 
 	5) Script-Migration		//generate SQL for all migrations
-	4) Script-Migration -From <name_migration_without_time> -To <name_migration_without_time>	//(from,to]: generate SQL from To_migration
+	4) Script-Migration -From <name_migration_without_time> -To <name_migration_without_time>	
+	//(from,to]: generate SQL from To_migration
 	==>> When execute migration command, the OnModelCreating function in ShopOnlineDBContext will be run.
 
-#Git
-	1) Don't need push "package" folder to Git. Visual Studio has feature "Restore Package".
+#Migration Machanism
+	1) Run migration commands
+	2) Create tables in "DbSet<Table>" list
+	3) Apply configuration file in "OnModelCreating" (detail config)
 
 #Knowledge - Mistake
 - FLUENT API: https://www.learnentityframeworkcore.com/configuration/fluent-api
@@ -93,7 +100,7 @@
 			+ public ICollection<Category> ChildrenCategories { get; set; }
 		- Inside Config (A): builder.HasMany(s => s.ChildrenCategories).WithOne(s => s.ParentCategory).HasForeignKey(s => s.ParentId);
 
-- SEEDING DATA (Init Data):
+#SEEDING DATA (Init Data):
 	+ Workflow:
 		1) Change the value of Primary key (included: DateTime.Now, Guid.NewGuid()). 
 		   Because EF core uses it to check if any changes made to the record. 
@@ -111,7 +118,7 @@
 		}
 	+ Revert Migration is still effect
 
-- IndentityDbContext
+#IndentityDbContext
 	+ Install package "Microsoft.AspNetCore.Identity"
 	+ Inherrit from DbContext => has all feature of DbContext.
 	+ Support for identty purpose (Default classes: IdentityUser, IdentityRole, ...). 
@@ -128,7 +135,7 @@
 		- I can CUSTOM "IdentityUser" and "IdentityRole" classes
 	    - That why we MUST declare 5 DbSets (UserClaim, UserLogin, UserToken, UserClaims, UserRole)
 
-- Using context.Database.Migrate() vs context.Database.EnsureCreated()
+#Using context.Database.Migrate() vs context.Database.EnsureCreated()
 	+ context.Database.Migrate()
 		1) Create Db if it does not already exist
 		2) Apply migration files
@@ -169,6 +176,8 @@
 		+ Log Levels:
 			- Trace(0) < Debug < Information < Warning < Error < Critical(5)
 
-
+#How to run default URL
+	+	(LOCAL)launchSettings.json (Choose IIS or Selfhost)
+		"launchUrl": "swagger",
 
 

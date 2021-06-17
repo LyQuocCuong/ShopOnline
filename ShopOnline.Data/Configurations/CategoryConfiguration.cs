@@ -13,15 +13,15 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<CATEGORY> builder)
         {
-            builder.ToTable("Categories");
-            builder.HasKey(s => s.Id);
+            builder.ToTable("CATEGORY");
+            builder.HasKey(s => s.ID);
             //Self reference association
-            builder.HasMany(s => s.ChildrenCategories).WithOne(s => s.ParentCategory).HasForeignKey(s => s.ParentId);
-            builder.Property(s => s.SortOrder).IsRequired();
-            builder.Property(s => s.IsShowOnHome).IsRequired();
-            builder.Property(s => s.Status).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.HasMany(s => s.CHILD_CATEGORIES).WithOne(s => s.PARENT_CATEGORY).HasForeignKey(s => s.PARENT_ID);
+            builder.Property(s => s.SORT_ORDER).IsRequired();
+            builder.Property(s => s.IS_SHOW_ON_HOME).IsRequired();
+            builder.Property(s => s.STATUS).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

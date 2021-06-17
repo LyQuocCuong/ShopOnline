@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.EF
 {
-    public class ShopOnlineDBContext : IdentityDbContext<SYS_USER, SYS_ROLE, Guid>
+    public class ShopOnlineDBContext : IdentityDbContext<S_USER, S_ROLE, Guid>
     {
         public ShopOnlineDBContext(DbContextOptions options) : base(options)
         {
@@ -22,7 +22,7 @@ namespace ShopOnline.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // add your own configuration here - Fluent API
+            //add your own configuration here - Fluent API
             modelBuilder.ApplyConfiguration(new CartConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
@@ -33,43 +33,53 @@ namespace ShopOnline.Data.EF
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
+
+            //Our system classes
             modelBuilder.ApplyConfiguration(new SysActionConfiguration());
             modelBuilder.ApplyConfiguration(new SysFeatureConfiguration());
             modelBuilder.ApplyConfiguration(new SysLogActivityConfiguration());
             modelBuilder.ApplyConfiguration(new SysPermissionConfiguration());
             modelBuilder.ApplyConfiguration(new SysSettingConfiguration());
 
-            // 7 classes of IdentityDBContext
-            modelBuilder.ApplyConfiguration(new SysUserConfiguration());
+            //7 default classes of IdentityDBContext
             modelBuilder.ApplyConfiguration(new SysUserClaimConfiguration());
             modelBuilder.ApplyConfiguration(new SysUserLoginConfiguration());
             modelBuilder.ApplyConfiguration(new SysUserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new SysUserTokenConfiguration());
-            modelBuilder.ApplyConfiguration(new SysRoleConfiguration());
             modelBuilder.ApplyConfiguration(new SysRoleClaimConfiguration());
+            //Customized Structure of IdentityDBContext
+            modelBuilder.ApplyConfiguration(new SysUserConfiguration());
+            modelBuilder.ApplyConfiguration(new SysRoleConfiguration());
 
             ////Seeding Data
             //modelBuilder.Seed();
         }
 
-        DbSet<CART> Carts { get; set; }
-        DbSet<CATEGORY> Categories { get; set; }
-        DbSet<CATEGORY_TRANSLATION> CategoryTranslations { get; set; }
-        DbSet<CONTACT> Contacts { get; set; }
-        DbSet<LANGUAGE> Languages { get; set; }
-        DbSet<ORDER> Orders { get; set; }
-        DbSet<ORDER_DETAIL> OrderDetails { get; set; }
-        DbSet<PRODUCT> Products { get; set; }
-        DbSet<PRODUCT_TRANSLATION> ProductTranslations { get; set; }
-        DbSet<PROMOTION> Promotions { get; set; }
-        DbSet<SYS_ACTION> SysActions { get; set; }
-        DbSet<SYS_SETTING> SysConfigurations { get; set; }
-        DbSet<SYS_FEATURE> SysFeatures { get; set; }
-        DbSet<SYS_LOG_ACTIVITY> SysLogActivities { get; set; }
-        DbSet<SYS_PERMISSION> SysPermissions { get; set; }
-        DbSet<SYS_ROLE> SysRoles { get; set; }
-        DbSet<SYS_USER> SysUsers { get; set; }
+        DbSet<CART> CART { get; set; }
+        DbSet<CATEGORY> CATEGORY { get; set; }
+        DbSet<CATEGORY_TRANSLATION> CATEGORY_TRANSLATION { get; set; }
+        DbSet<CONTACT> CONTACT { get; set; }
+        DbSet<LANGUAGE> LANGUAGE { get; set; }
+        DbSet<ORDER> ORDER { get; set; }
+        DbSet<ORDER_DETAIL> ORDER_DETAIL { get; set; }
+        DbSet<PRODUCT> PRODUCT { get; set; }
+        DbSet<PRODUCT_IN_CATEGORY> PRODUCT_IN_CATEGORY { get; set; }
+        DbSet<PRODUCT_TRANSLATION> PRODUCT_TRANSLATION { get; set; }
+        DbSet<PROMOTION> PROMOTION { get; set; }
+        DbSet<PRODUCT_IMAGE> PRODUCT_IMAGE { get; set; }
+
+        //Our System Configurations
+        DbSet<S_ACTION> S_ACTION { get; set; }
+        DbSet<S_FEATURE> S_FEATURE { get; set; }
+        DbSet<S_LOG_ACTIVITY> S_LOG_ACTIVITY { get; set; }
+        DbSet<S_PERMISSION> S_PERMISSION { get; set; }
+        DbSet<S_SETTING> S_SETTING { get; set; }
+
+        //Customized structure classes of IdentityDBContext
+        DbSet<S_USER> S_USER { get; set; }
+        DbSet<S_ROLE> S_ROLE { get; set; }
+
     }
 }

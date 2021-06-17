@@ -9,13 +9,13 @@ namespace ShopOnline.Data.Entities
 {
     public class CONTACT
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Message { get; set; }
-        public UserStatus Status { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public Guid ID { get; set; }
+        public string NAME { get; set; }
+        public string EMAIL { get; set; }
+        public string PHONE_NUMBER { get; set; }
+        public string MESSAGE { get; set; }
+        public UserStatus STATUS { get; set; }
+        public DateTime CREATED_DATE { get; set; }
+        public bool IS_DELETED { get; set; }
     }
 }

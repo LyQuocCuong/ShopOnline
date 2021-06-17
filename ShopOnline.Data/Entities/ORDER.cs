@@ -9,19 +9,19 @@ namespace ShopOnline.Data.Entities
 {
     public class ORDER
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public string ShipName { get; set; }
-        public string ShipAddress { get; set; }
-        public string ShipEmail { get; set; }
-        public string ShipPhoneNumber { get; set; }
-        public OrderStatus Status { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public Guid ID { get; set; }
+        public Guid S_USER_ID { get; set; }
+        public DateTime ORDER_DATE { get; set; }
+        public string SHIP_NAME { get; set; }
+        public string SHIP_ADDRESS { get; set; }
+        public string SHIP_EMAIL { get; set; }
+        public string SHIP_PHONE_NUMBER { get; set; }
+        public OrderStatus STATUS { get; set; }
+        public DateTime CREATED_DATE { get; set; }
+        public bool IS_DELETED { get; set; }
 
         //inverse navigation property
-        public SYS_USER SysUser { get; set; }
-        public ICollection<ORDER_DETAIL> OrderDetails { get; set; }
+        public S_USER S_USER { get; set; }
+        public ICollection<ORDER_DETAIL> ORDER_DETAILS { get; set; }
     }
 }

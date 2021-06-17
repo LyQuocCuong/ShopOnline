@@ -13,12 +13,12 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<CONTACT> builder)
         {
-            builder.ToTable("Contacts");
-            builder.HasKey(s => s.Id);
-            builder.Property(s => s.Name).IsRequired();
-            builder.Property(s => s.Status).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("CONTACT");
+            builder.HasKey(s => s.ID);
+            builder.Property(s => s.NAME).IsRequired();
+            builder.Property(s => s.STATUS).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

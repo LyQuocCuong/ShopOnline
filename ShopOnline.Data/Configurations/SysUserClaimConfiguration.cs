@@ -13,7 +13,7 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<IdentityUserClaim<Guid>> builder)
         {
-            builder.ToTable("SysUserClaim");
+            builder.ToTable("S_USER_CLAIM");
             builder.HasKey(x => new { x.Id });
         }
     }

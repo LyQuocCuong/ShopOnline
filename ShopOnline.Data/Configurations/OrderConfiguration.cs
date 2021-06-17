@@ -13,14 +13,14 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ORDER> builder)
         {
-            builder.ToTable("Orders");
-            builder.HasKey(s => s.Id);
-            builder.HasOne(s => s.SysUser).WithMany(s => s.Orders).HasForeignKey(s => s.UserId);
-            builder.Property(s => s.OrderDate).IsRequired();
-            builder.Property(s => s.ShipAddress).IsRequired();
-            builder.Property(s => s.Status).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("ORDER");
+            builder.HasKey(s => s.ID);
+            builder.HasOne(s => s.S_USER).WithMany(s => s.ORDERS).HasForeignKey(s => s.S_USER_ID);
+            builder.Property(s => s.ORDER_DATE).IsRequired();
+            builder.Property(s => s.SHIP_ADDRESS).IsRequired();
+            builder.Property(s => s.STATUS).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

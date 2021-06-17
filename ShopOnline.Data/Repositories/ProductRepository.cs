@@ -18,14 +18,14 @@ namespace ShopOnline.Data.Repositories
             productDto.Id = Guid.NewGuid();
             PRODUCT newProduct = new PRODUCT()
             {
-                Id = productDto.Id,
-                OriginalPrice = productDto.OriginalPrice,
-                Price = productDto.Price,
-                Stock = productDto.Stock,
-                ViewCount = 0,
-                CreatedDate = DateTime.Now,
-                Status = ProductStatus.InStock,
-                IsDeleted = false,
+                ID = productDto.Id,
+                ORIGINAL_PRICE = productDto.OriginalPrice,
+                SELLING_PRICE = productDto.Price,
+                STOCK_AMOUNT = productDto.Stock,
+                VIEW_COUNT = 0,
+                CREATED_DATE = DateTime.Now,
+                STATUS = ProductStatus.InStock,
+                IS_DELETED = false,
             };
             DataSet.Add(newProduct);
             return true;

@@ -13,13 +13,13 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PROMOTION> builder)
         {
-            builder.ToTable("Promotions");
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.FromDate).IsRequired();
-            builder.Property(x => x.ToDate).IsRequired();
-            builder.Property(x => x.Status).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("PROMOTION");
+            builder.HasKey(x => x.ID);
+            builder.Property(x => x.FROM_DATE).IsRequired();
+            builder.Property(x => x.TO_DATE).IsRequired();
+            builder.Property(x => x.STATUS).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

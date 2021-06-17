@@ -13,12 +13,12 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<LANGUAGE> builder)
         {
-            builder.ToTable("Languages");
-            builder.HasKey(s => s.Id);
-            builder.Property(s => s.Name).IsRequired();
-            builder.Property(s => s.IsDefault).IsRequired().HasDefaultValue(true);
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("LANGUAGE");
+            builder.HasKey(s => s.ID);
+            builder.Property(s => s.NAME).IsRequired();
+            builder.Property(s => s.IS_DEFAULT).IsRequired().HasDefaultValue(true);
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

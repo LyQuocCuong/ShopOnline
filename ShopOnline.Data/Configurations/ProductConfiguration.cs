@@ -13,15 +13,15 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PRODUCT> builder)
         {
-            builder.ToTable("Products");
-            builder.HasKey(s => s.Id);
-            builder.Property(s => s.OriginalPrice).IsRequired();
-            builder.Property(s => s.Price).IsRequired();
-            builder.Property(s => s.Stock).IsRequired();
-            builder.Property(s => s.ViewCount).IsRequired();
-            builder.Property(s => s.Status).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("PRODUCT");
+            builder.HasKey(s => s.ID);
+            builder.Property(s => s.ORIGINAL_PRICE).IsRequired();
+            builder.Property(s => s.SELLING_PRICE).IsRequired();
+            builder.Property(s => s.STOCK_AMOUNT).IsRequired();
+            builder.Property(s => s.VIEW_COUNT).IsRequired();
+            builder.Property(s => s.STATUS).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

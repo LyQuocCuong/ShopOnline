@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysLogActivityConfiguration : IEntityTypeConfiguration<SYS_LOG_ACTIVITY>
+    public class SysLogActivityConfiguration : IEntityTypeConfiguration<S_LOG_ACTIVITY>
     {
-        public void Configure(EntityTypeBuilder<SYS_LOG_ACTIVITY> builder)
+        public void Configure(EntityTypeBuilder<S_LOG_ACTIVITY> builder)
         {
-            builder.ToTable("SysLogActivities");
-            builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.SysUser).WithMany(x => x.SysLogActivities).HasForeignKey(x => x.UserId);
-            builder.Property(x => x.SysFeatureName).IsRequired();
-            builder.Property(x => x.SysFeatureName).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("S_LOG_ACTIVITY");
+            builder.HasKey(x => x.ID);
+            builder.HasOne(x => x.S_USER).WithMany(x => x.S_LOG_ACTIVITIES).HasForeignKey(x => x.S_USER_ID);
+            builder.Property(x => x.CLIENT_ID).IsRequired();
+            builder.Property(x => x.S_FEATURE_NAME).IsRequired();
+            builder.Property(x => x.S_ACTION_NAME).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

@@ -13,13 +13,13 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PRODUCT_TRANSLATION> builder)
         {
-            builder.ToTable("ProductTranslations");
-            builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Product).WithMany(x => x.ProductTranslations).HasForeignKey(x => x.ProductId);
-            builder.HasOne(x => x.Language).WithMany(x => x.ProductTranslations).HasForeignKey(x => x.LanguageId);
-            builder.Property(x => x.Name).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("PRODUCT_TRANSLATION");
+            builder.HasKey(x => x.ID);
+            builder.HasOne(x => x.PRODUCT).WithMany(x => x.PRODUCT_TRANSLATIONS).HasForeignKey(x => x.PRODUCT_ID);
+            builder.HasOne(x => x.LANGUAGE).WithMany(x => x.PRODUCT_TRANSLATIONS).HasForeignKey(x => x.LANGUAGE_ID);
+            builder.Property(x => x.NAME).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

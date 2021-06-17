@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysUserConfiguration : IEntityTypeConfiguration<SYS_USER>
+    public class SysUserConfiguration : IEntityTypeConfiguration<S_USER>
     {
-        public void Configure(EntityTypeBuilder<SYS_USER> builder)
+        public void Configure(EntityTypeBuilder<S_USER> builder)
         {
-            builder.ToTable("SysUsers");
+            builder.ToTable("S_USER");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.FullName).IsRequired();
             builder.Property(x => x.UserName).IsRequired();
             builder.Property(x => x.PasswordHash).IsRequired();
-            builder.Property(x => x.Status).IsRequired();
-            builder.Property(x => x.LastLoginDate).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.Property(x => x.FULL_NAME).IsRequired();
+            builder.Property(x => x.STATUS).IsRequired();
+            builder.Property(x => x.LAST_LOGIN_DATE).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

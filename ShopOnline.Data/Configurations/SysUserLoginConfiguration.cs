@@ -13,7 +13,7 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<IdentityUserLogin<Guid>> builder)
         {
-            builder.ToTable("SysUserLogin");
+            builder.ToTable("S_USER_LOGIN");
             builder.HasKey(x => new { x.UserId });
         }
     }

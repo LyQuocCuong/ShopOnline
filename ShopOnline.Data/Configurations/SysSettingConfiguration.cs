@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Data.Configurations
 {
-    public class SysSettingConfiguration : IEntityTypeConfiguration<SYS_SETTING>
+    public class SysSettingConfiguration : IEntityTypeConfiguration<S_SETTING>
     {
-        public void Configure(EntityTypeBuilder<SYS_SETTING> builder)
+        public void Configure(EntityTypeBuilder<S_SETTING> builder)
         {
-            builder.ToTable("SysSettings");
-            builder.HasKey(s => s.Key);
-            builder.Property(s => s.Value).IsRequired();
-            builder.Property(s => s.CreatedDate).IsRequired();
-            builder.Property(s => s.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("S_SETTING");
+            builder.HasKey(s => s.KEY);
+            builder.Property(s => s.VALUE).IsRequired();
+            builder.Property(s => s.CREATED_DATE).IsRequired();
+            builder.Property(s => s.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

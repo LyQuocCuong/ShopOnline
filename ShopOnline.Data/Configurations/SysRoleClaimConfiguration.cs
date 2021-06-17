@@ -13,7 +13,7 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<IdentityRoleClaim<Guid>> builder)
         {
-            builder.ToTable("SysRoleClaim");
+            builder.ToTable("S_ROLE_CLAIM");
             builder.HasKey(x => new { x.RoleId });
         }
     }

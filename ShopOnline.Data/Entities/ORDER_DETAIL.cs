@@ -8,16 +8,16 @@ namespace ShopOnline.Data.Entities
 {
     public class ORDER_DETAIL
     {
-        public Guid Id { get; set; }
-        public Guid OrderId { get; set; }
-        public Guid ProductId { get; set; }
-        public int Quantity { get; set; }
-        public double Price { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public Guid ID { get; set; }
+        public Guid ORDER_ID { get; set; }
+        public Guid PRODUCT_ID { get; set; }
+        public int QUANTITY { get; set; }
+        public double PRICE { get; set; }
+        public DateTime CREATED_DATE { get; set; }
+        public bool IS_DELETED { get; set; }
 
         //inverse navigation property
-        public ORDER Order { get; set; }
-        public PRODUCT Product { get; set; }
+        public ORDER ORDER { get; set; }
+        public PRODUCT PRODUCT { get; set; }
     }
 }

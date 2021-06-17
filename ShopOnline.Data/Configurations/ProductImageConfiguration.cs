@@ -11,14 +11,14 @@ namespace ShopOnline.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PRODUCT_IMAGE> builder)
         {
-            builder.ToTable("ProductImage");
-            builder.HasKey(proImage => proImage.Id);
-            builder.HasOne(proImage => proImage.Product)
-                .WithMany(pro => pro.ProductImages)
-                .HasForeignKey(proImage => proImage.ProductId);
-            builder.Property(proImage => proImage.Path).IsRequired();
-            builder.Property(proImage => proImage.CreatedDate).IsRequired();
-            builder.Property(proImage => proImage.IsDeleted).IsRequired().HasDefaultValue(false);
+            builder.ToTable("PRODUCT_IMAGE");
+            builder.HasKey(proImage => proImage.ID);
+            builder.HasOne(proImage => proImage.PRODUCT)
+                .WithMany(pro => pro.PRODUCT_IMAGES)
+                .HasForeignKey(proImage => proImage.PRODUCT_ID);
+            builder.Property(proImage => proImage.PATH).IsRequired();
+            builder.Property(proImage => proImage.CREATED_DATE).IsRequired();
+            builder.Property(proImage => proImage.IS_DELETED).IsRequired().HasDefaultValue(false);
         }
     }
 }

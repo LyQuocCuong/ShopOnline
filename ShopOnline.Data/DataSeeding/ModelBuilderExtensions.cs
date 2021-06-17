@@ -12,23 +12,23 @@ namespace ShopOnline.Data.DataInit
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SYS_ROLE>().HasData(
-                new SYS_ROLE()
+            modelBuilder.Entity<S_ROLE>().HasData(
+                new S_ROLE()
                 {
                     Id = Guid.NewGuid(),
                     Name = "admin",
-                    Description = "",
-                    CreatedDate = DateTime.Now,
-                    IsDeleted = false,
+                    DESCRIPTION = "",
+                    CREATED_DATE = DateTime.Now,
+                    IS_DELETED = false,
                 }
             );
-            modelBuilder.Entity<SYS_SETTING>().HasData(
-                new SYS_SETTING()
+            modelBuilder.Entity<S_SETTING>().HasData(
+                new S_SETTING()
                 {
-                    Key = Guid.Parse("1beb61cd-b138-4117-9d61-09e46d7b4850").ToString(),
-                    Value = "123",
-                    CreatedDate = DateTime.Now,
-                    IsDeleted = false
+                    KEY = Guid.Parse("1beb61cd-b138-4117-9d61-09e46d7b4850").ToString(),
+                    VALUE = "123",
+                    CREATED_DATE = DateTime.Now,
+                    IS_DELETED = false
                 }
             );
         }

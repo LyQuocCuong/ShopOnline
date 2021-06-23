@@ -1,4 +1,7 @@
-﻿using ShopOnline.Data.EF;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using ShopOnline.Data.EF;
+using ShopOnline.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +12,27 @@ namespace ShopOnline.Data.Repositories.Definition
 {
     public class ShopOnlineRepository : IDisposable
     {
-        public ShopOnlineDBContext _context;
+        public readonly ShopOnlineDBContext DBContext;
+        public readonly IConfiguration Configuration;
+        public readonly UserManager<S_USER> API_UserManager;
+        public readonly SignInManager<S_USER> API_SignInManager;
 
-        public ShopOnlineRepository(ShopOnlineDBContext context)
+        public ShopOnlineRepository(ShopOnlineDBContext dbContext,
+                                    IConfiguration configuration,
+                                    UserManager<S_USER> api_UserManager,
+                                    SignInManager<S_USER> api_SignInManager)
         {
-            _context = context;
+            DBContext = dbContext;
+            Configuration = configuration;
+            API_UserManager = api_UserManager;
+            API_SignInManager = api_SignInManager;
         }
 
         public bool SaveChanges()
         {
             try
             {
-                _context.SaveChanges();
+                DBContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -34,6 +46,7 @@ namespace ShopOnline.Data.Repositories.Definition
             GC.SuppressFinalize(this);
         }
 
+        #region PRODUCT
         private ProductRepository productRepository { get; set; }
         public ProductRepository PRODUCT_REPOSITORY
         {
@@ -44,7 +57,20 @@ namespace ShopOnline.Data.Repositories.Definition
                 return productRepository;
             }
         }
+        #endregion
 
+        #region S_USER
+        private UserRepository suserRepository { get; set; }
+        public UserRepository SUSER_REPOSITORY
+        {
+            get
+            {
+                if (suserRepository == null)
+                    suserRepository = new UserRepository(this);
+                return suserRepository;
+            }
+        }
+        #endregion
 
     }
 }

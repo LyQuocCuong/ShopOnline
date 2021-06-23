@@ -180,4 +180,21 @@
 	+	(LOCAL)launchSettings.json (Choose IIS or Selfhost)
 		"launchUrl": "swagger",
 
-
+#JWT for Authenticate
+	+ JWT includes 3 parts seperated by "." -> Header.Payload.Signature
+		1) Header (Encode/Decode: Base64url)
+			{
+				"typ": "JWT",	//type of string
+				"alg": "HS256"	//algorithm used for Signature
+			}
+		2) Payload (Encode/Decode: Base64url)
+			{
+				//Info we want to save
+				"Id", "Name",...
+			}
+		3) Signature (Encode/NOT Decode: HMAC SHA256)
+			= Header + "." + Payload + secrect_key
+#Rule of SecrectKey in Project
+	+ At least 16 characters because of SymmetricSecurityKey func.
+#Supporting classes of Microsoft provide APIs: 
+	+ UserManager<TUSER>, SignInManager<TUSER>

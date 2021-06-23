@@ -1,13 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ShopOnline.Data.EF;
+using ShopOnline.Data.Entities;
+using ShopOnline.Data.Repositories.Definition;
 using ShopOnline.Service.Public.IServices;
 using ShopOnline.Service.Services;
+using ShopOnline.Services.IServices;
+using ShopOnline.Services.Services;
 
 namespace ShopOnline.BackendApi
 {
@@ -24,7 +29,7 @@ namespace ShopOnline.BackendApi
         public void ConfigureServices(IServiceCollection services)
         {
             //MVC
-            services.AddControllersWithViews();
+            services.AddControllers();
             #region SWAGGER
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
@@ -32,8 +37,17 @@ namespace ShopOnline.BackendApi
             //DI for DbContext
             services.AddDbContext<ShopOnlineDBContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:ShopOnlineDB"));
+            //Configurate using the lib Identity
+            services.AddIdentity<S_USER, S_ROLE>()
+                .AddEntityFrameworkStores<ShopOnlineDBContext>()
+                .AddDefaultTokenProviders();
+            //DI for lib Identity
+            services.AddTransient<UserManager<S_USER>, UserManager<S_USER>>();
+            services.AddTransient<SignInManager<S_USER>, SignInManager<S_USER>>();
             //DI
+            services.AddTransient<ShopOnlineRepository, ShopOnlineRepository>();
             services.AddTransient<IPublicProductService, PublicProductService>();
+            services.AddTransient<IUserPublicService, UserPublicService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

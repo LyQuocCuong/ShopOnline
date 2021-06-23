@@ -29,7 +29,7 @@ namespace ShopOnline.Data.Repositories.Definition
 
         public AbstractRepository(ShopOnlineRepository repository)
         {
-            DataSet = repository._context.Set<T>();
+            DataSet = repository.DBContext.Set<T>();
             Repository = repository;
         }
 

@@ -19,6 +19,7 @@ namespace ShopOnline.BackendApi.Controllers
             _logger = logger;
         }
 
+        [HttpGet("Index")]
         public IActionResult Index()
         {
             return View();

@@ -198,3 +198,21 @@
 	+ At least 16 characters because of SymmetricSecurityKey func.
 #Supporting classes of Microsoft provide APIs: 
 	+ UserManager<TUSER>, SignInManager<TUSER>
+
+#Fluent Validation (Another way of DataAnotation: [Required], [MinLength(10), ...])
+	1) Install package: "FluentValidation.AspNetCore"
+	2) Meaning:
+		+ FluentValidation is a server-side framework.
+		+ Does not provide any client-side validation DIRECTLY.
+		=> However: NotNull/NotEmpty, Length (Min/Max), ... can generated as meta data 
+		and used such as JQuery Validate
+	3) Implement:
+		+ A new validator class inherrit "AbstractValidator<LoginRequestDto>"
+		+ Write everything inside CONSTRUCTOR
+		+ Config rule: RuleFor(x => x.Id)....
+		+ Declare DI in Startup file
+	4) Disadvantaged:
+		+ Display multi message at the same time. Have to custom with "If clause" (Similar to DataAnotation)
+	5) Advantaged:
+		+ Seperate validations from structure code of DTO
+		+ Easy ti maintain-

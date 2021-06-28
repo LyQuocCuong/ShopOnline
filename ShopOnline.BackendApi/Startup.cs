@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +14,7 @@ using ShopOnline.BackendApi.Extensions;
 using ShopOnline.Data.EF;
 using ShopOnline.Data.Entities;
 using ShopOnline.Data.Repositories.Definition;
+using ShopOnline.Dto.System.User;
 using ShopOnline.Service.Public.IServices;
 using ShopOnline.Service.Services;
 using ShopOnline.Services.IServices;
@@ -33,7 +36,7 @@ namespace ShopOnline.BackendApi
         public void ConfigureServices(IServiceCollection services)
         {
             //Model
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
 
             //SWAGGER
             services.AddSwaggerExtension();
@@ -50,6 +53,10 @@ namespace ShopOnline.BackendApi
             //DI for API Identity
             services.AddTransient<UserManager<S_USER>, UserManager<S_USER>>();
             services.AddTransient<SignInManager<S_USER>, SignInManager<S_USER>>();
+
+            //DI for Fluent Validator
+            services.AddTransient<IValidator<LoginRequestDto>, LoginRequestValidator>();
+            services.AddTransient<IValidator<RegisterRequestDto>, RegisterRequestValidator>();
 
             //DI
             services.AddTransient<ShopOnlineRepository, ShopOnlineRepository>();

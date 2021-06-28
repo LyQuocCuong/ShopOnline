@@ -62,13 +62,13 @@ namespace ShopOnline.Data.Repositories
             {
                 Id = Guid.NewGuid(),
                 UserName = registerRequestDto.Username,
-                PasswordHash = registerRequestDto.Password,
+                PasswordHash = registerRequestDto.RawPassword,
                 FULL_NAME = registerRequestDto.Fullname,
                 DOB = registerRequestDto.DOB,
                 STATUS = Enums.UserStatus.Activated,
                 IS_DELETED = false,
             };
-            var result = await Repository.API_UserManager.CreateAsync(newUser, registerRequestDto.Password);
+            var result = await Repository.API_UserManager.CreateAsync(newUser, registerRequestDto.RawPassword);
             return result.Succeeded;
         }
     }

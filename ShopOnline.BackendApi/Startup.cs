@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using ShopOnline.BackendApi.Extensions;
 using ShopOnline.Data.EF;
 using ShopOnline.Data.Entities;
 using ShopOnline.Data.Repositories.Definition;
@@ -13,6 +16,7 @@ using ShopOnline.Service.Public.IServices;
 using ShopOnline.Service.Services;
 using ShopOnline.Services.IServices;
 using ShopOnline.Services.Services;
+using System.Text;
 
 namespace ShopOnline.BackendApi
 {
@@ -28,26 +32,55 @@ namespace ShopOnline.BackendApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //MVC
+            //Model
             services.AddControllers();
-            #region SWAGGER
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
-            #endregion
+
+            //SWAGGER
+            services.AddSwaggerExtension();
+
             //DI for DbContext
             services.AddDbContext<ShopOnlineDBContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:ShopOnlineDB"));
+
             //Configurate using the lib Identity
             services.AddIdentity<S_USER, S_ROLE>()
                 .AddEntityFrameworkStores<ShopOnlineDBContext>()
                 .AddDefaultTokenProviders();
-            //DI for lib Identity
+
+            //DI for API Identity
             services.AddTransient<UserManager<S_USER>, UserManager<S_USER>>();
             services.AddTransient<SignInManager<S_USER>, SignInManager<S_USER>>();
+
             //DI
             services.AddTransient<ShopOnlineRepository, ShopOnlineRepository>();
             services.AddTransient<IPublicProductService, PublicProductService>();
             services.AddTransient<IUserPublicService, UserPublicService>();
+
+            //Validate JWT
+            string issuer = Configuration["Token:Issuer"];
+            string secrectKey = Configuration["Token:Secrect_Key"];
+            byte[] signingKeyBytes = Encoding.UTF8.GetBytes(secrectKey);
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = issuer,
+                    ValidateAudience = true,
+                    ValidAudience = issuer,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = System.TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,21 +104,14 @@ namespace ShopOnline.BackendApi
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            #region SWAGGER
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-            #endregion
-
+            app.UseAuthentication();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            //SWAGGER
+            app.UseSwaggerExtension();
 
             app.UseEndpoints(endpoints =>
             {

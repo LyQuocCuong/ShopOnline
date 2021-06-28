@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShopOnline.Dto.System.User;
 using ShopOnline.Services.IServices;
 using System;
@@ -10,6 +11,7 @@ namespace ShopOnline.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserPublicService _userPublicService;
@@ -19,6 +21,7 @@ namespace ShopOnline.BackendApi.Controllers
             _userPublicService = userPublicService;
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromForm] LoginRequestDto loginRequestDto)
         {
@@ -34,6 +37,7 @@ namespace ShopOnline.BackendApi.Controllers
             return BadRequest("Bad");
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromForm]RegisterRequestDto registerRequestDto)
         {

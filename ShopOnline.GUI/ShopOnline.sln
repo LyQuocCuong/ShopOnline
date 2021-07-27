@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{EA62BC85-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{63461A4C-FA35-43FF-8C71-E3151521C2D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopOnline.AppAdmin", "..\ShopOnline.AppAdmin\ShopOnline.AppAdmin.csproj", "{924EEA73-C71F-492D-99E0-D2AFFD70B9DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{7513630C-8957-442D-8AFD-B4AF81BF80DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7513630C-8957-442D-8AFD-B4AF81BF80DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7513630C-8957-442D-8AFD-B4AF81BF80DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{924EEA73-C71F-492D-99E0-D2AFFD70B9DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{924EEA73-C71F-492D-99E0-D2AFFD70B9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{924EEA73-C71F-492D-99E0-D2AFFD70B9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{924EEA73-C71F-492D-99E0-D2AFFD70B9DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{7F813DA4-5066-472D-91F5-376185058915} = {63461A4C-FA35-43FF-8C71-E3151521C2D9}
 		{7DD40CDB-285E-45B8-BB78-68EAF8745E93} = {63461A4C-FA35-43FF-8C71-E3151521C2D9}
 		{7513630C-8957-442D-8AFD-B4AF81BF80DF} = {7DFD71DF-C44A-4720-B42B-1F59211B5AF2}
+		{924EEA73-C71F-492D-99E0-D2AFFD70B9DD} = {7DFD71DF-C44A-4720-B42B-1F59211B5AF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63148EA9-1DE3-4C89-85E9-C37F161DB970}

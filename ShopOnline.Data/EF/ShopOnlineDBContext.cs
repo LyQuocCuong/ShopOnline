@@ -57,29 +57,29 @@ namespace ShopOnline.Data.EF
             //modelBuilder.Seed();
         }
 
-        DbSet<CART> CART { get; set; }
-        DbSet<CATEGORY> CATEGORY { get; set; }
-        DbSet<CATEGORY_TRANSLATION> CATEGORY_TRANSLATION { get; set; }
-        DbSet<CONTACT> CONTACT { get; set; }
-        DbSet<LANGUAGE> LANGUAGE { get; set; }
-        DbSet<ORDER> ORDER { get; set; }
-        DbSet<ORDER_DETAIL> ORDER_DETAIL { get; set; }
-        DbSet<PRODUCT> PRODUCT { get; set; }
-        DbSet<PRODUCT_IN_CATEGORY> PRODUCT_IN_CATEGORY { get; set; }
-        DbSet<PRODUCT_TRANSLATION> PRODUCT_TRANSLATION { get; set; }
-        DbSet<PROMOTION> PROMOTION { get; set; }
-        DbSet<PRODUCT_IMAGE> PRODUCT_IMAGE { get; set; }
+        public DbSet<CART> CART { get; set; }
+        public DbSet<CATEGORY> CATEGORY { get; set; }
+        public DbSet<CATEGORY_TRANSLATION> CATEGORY_TRANSLATION { get; set; }
+        public DbSet<CONTACT> CONTACT { get; set; }
+        public DbSet<LANGUAGE> LANGUAGE { get; set; }
+        public DbSet<ORDER> ORDER { get; set; }
+        public DbSet<ORDER_DETAIL> ORDER_DETAIL { get; set; }
+        public DbSet<PRODUCT> PRODUCT { get; set; }
+        public DbSet<PRODUCT_IN_CATEGORY> PRODUCT_IN_CATEGORY { get; set; }
+        public DbSet<PRODUCT_TRANSLATION> PRODUCT_TRANSLATION { get; set; }
+        public DbSet<PROMOTION> PROMOTION { get; set; }
+        public DbSet<PRODUCT_IMAGE> PRODUCT_IMAGE { get; set; }
 
         //Our System Configurations
-        DbSet<S_ACTION> S_ACTION { get; set; }
-        DbSet<S_FEATURE> S_FEATURE { get; set; }
-        DbSet<S_LOG_ACTIVITY> S_LOG_ACTIVITY { get; set; }
-        DbSet<S_PERMISSION> S_PERMISSION { get; set; }
-        DbSet<S_SETTING> S_SETTING { get; set; }
+        public DbSet<S_ACTION> S_ACTION { get; set; }
+        public DbSet<S_FEATURE> S_FEATURE { get; set; }
+        public DbSet<S_LOG_ACTIVITY> S_LOG_ACTIVITY { get; set; }
+        public DbSet<S_PERMISSION> S_PERMISSION { get; set; }
+        public DbSet<S_SETTING> S_SETTING { get; set; }
 
         //Customized structure classes of IdentityDBContext
-        DbSet<S_USER> S_USER { get; set; }
-        DbSet<S_ROLE> S_ROLE { get; set; }
+        public DbSet<S_USER> S_USER { get; set; }
+        public DbSet<S_ROLE> S_ROLE { get; set; }
 
     }
 }

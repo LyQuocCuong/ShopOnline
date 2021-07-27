@@ -215,4 +215,50 @@
 		+ Display multi message at the same time. Have to custom with "If clause" (Similar to DataAnotation)
 	5) Advantaged:
 		+ Seperate validations from structure code of DTO
-		+ Easy ti maintain-
+		+ Easy ti maintain
+
+# Route vs [HttpGet/Post]
+	- Similar: Both are routing URL
+	- Difference:
+		1) Route
+			+ Not Specify HttpVerb, don't know get/post/put...
+			+ Often used in Controller name to define BASE URL (Another type: RoutePrefix)
+			+ Can be used both ControllerName, ActionName
+		2) Http Attribute
+			+ Specify action Http: Get/Post/Put...
+			+ Only used in ActionName
+	- ERROR when using:
+
+		1) "/User/Login" => Will Not Found
+		EX:
+			public class UserController : Controller
+			{
+				[HttpGet("Login")]
+				public IActionResult Login()
+				{
+					return View();
+				}
+			}
+
+		==>> FIXED - first way)
+
+			[Route("User")]
+			public class UserController : Controller
+			{
+				[HttpGet("Login")]
+				public IActionResult Login()
+				{
+					return View();
+				}
+			}
+			
+		==>> FIXED - second way)
+		
+			public class UserController : Controller
+			{
+				[HttpGet]
+				public IActionResult Login()
+				{
+					return View();
+				}
+			}

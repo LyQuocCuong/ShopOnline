@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.BackendApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
-    public class UserController : Controller
+    public class UserApiController : Controller
     {
         private readonly IUserPublicService _userPublicService;
 
-        public UserController(IUserPublicService userPublicService)
+        public UserApiController(IUserPublicService userPublicService)
         {
             _userPublicService = userPublicService;
         }
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromForm] LoginRequestDto loginRequestDto)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto)
         {
             if (!ModelState.IsValid)
             {

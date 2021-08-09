@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Compile Remove="Models\**" />
+    <Content Remove="Logs\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Logs\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopOnlineApi.Data\ShopOnlineApi.Data.csproj" />
+    <ProjectReference Include="..\ShopOnlineApi.Services\ShopOnlineApi.Services.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,5 @@
 ﻿using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace ShopOnline.AppAdmin.Services
         public Task<bool> CreateUser(CreateUserDto createUserDto);
         public Task<bool> UpdateUser(UpdateUserDto updateUserDto);
         public Task<bool> DeleteUser(Guid userId);
-        public Task<List<UserVM>> ReadUserList();
+        public Task<List<UserVM>> ReadUserList(ReadUserDto readUserDto);
     }
 }

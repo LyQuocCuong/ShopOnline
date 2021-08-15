@@ -28,6 +28,7 @@ namespace ShopOnline.AppAdmin
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
             //Using HttpClient
             services.AddHttpClient();
 
@@ -35,14 +36,18 @@ namespace ShopOnline.AppAdmin
                     .AddCookie(options =>
                     {
                         options.LoginPath = "/User/Login";
+                        options.Cookie.Name = "CuongCookie";
+                        options.Cookie.HttpOnly = true;
+                        options.Cookie.IsEssential = true;
                     });
 
             services.AddControllersWithViews();
 
-            //services.AddSession(options =>
-            //{
-            //    options.IdleTimeout = TimeSpan.FromMinutes(30);
-            //});
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.Name = "CuongSessionCookie";
+            });
 
             //DI Fluent Validation
             services.AddTransient<IValidator<LoginUserDto>, LoginUserValidator>();
@@ -75,7 +80,7 @@ namespace ShopOnline.AppAdmin
 
             app.UseAuthorization();
 
-            //app.UseSession();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

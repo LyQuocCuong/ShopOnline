@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using ShopOnline.Data.Entities;
 using ShopOnline.Data.Repositories.Definition;
 using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -99,7 +100,7 @@ namespace ShopOnline.Data.Repositories
             return false;
         }
 
-        public List<UserVM> ReadUserList()
+        public List<UserVM> ReadUserList(ReadUserDto readUserDto)
         {
             List<UserVM> userList = new List<UserVM>();
             try

@@ -1,9 +1,13 @@
 ﻿using Newtonsoft.Json;
 using ShopOnline.Dto.System.User;
+using ShopOnline.Helpers.ShopOnlineApi;
+using ShopOnline.Models.System.User.Dto;
+using ShopOnline.Utilities.Consts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,14 +24,14 @@ namespace ShopOnline.AppAdmin.Services
 
         public async Task<string> Authenticate(LoginUserDto loginUserDto)
         {
-            var jsonDto = JsonConvert.SerializeObject(loginUserDto);
-            var httpContent = new StringContent(jsonDto, Encoding.UTF8, "application/json");
-
-            HttpClient client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("https://localhost:44315");
-            var response = await client.PostAsync("/UserApi/Login", httpContent);
-            string token = await response.Content.ReadAsStringAsync();
-            return token;
+            ShopOnlineApiParams apiParams = new ShopOnlineApiParams()
+            {
+                HttpClientFactory = _httpClientFactory,
+                UrlPath = "/UserApi/Login",
+                Content = loginUserDto
+            };
+            string jsonResult = await ShopOnlineApiHelper.PostMethodAnonymous(apiParams);
+            return jsonResult;
         }
 
         public Task<bool> CreateUser(CreateUserDto createUserDto)
@@ -40,14 +44,16 @@ namespace ShopOnline.AppAdmin.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<UserVM>> ReadUserList()
+        public async Task<List<UserVM>> ReadUserList(ReadUserDto readUserDto)
         {
-            HttpClient client = _httpClientFactory.CreateClient();
-            client.BaseAddress = new Uri("https://localhost:44315");
-            var response = await client.GetAsync("/UserApi/ReadUserList");
-            string resultJsonStr = await response.Content.ReadAsStringAsync();
-            List<UserVM> userList = JsonConvert.DeserializeObject<List<UserVM>>(resultJsonStr);
-            
+            ShopOnlineApiParams apiParams = new ShopOnlineApiParams()
+            {
+                HttpClientFactory = _httpClientFactory,
+                UrlPath = "/UserApi/ReadUserList",
+                Token = readUserDto.RawToken,
+            };
+            string jsonResult = await ShopOnlineApiHelper.GetMethod(apiParams);
+            List<UserVM> userList = JsonConvert.DeserializeObject<List<UserVM>>(jsonResult);
             return userList;
         }
 

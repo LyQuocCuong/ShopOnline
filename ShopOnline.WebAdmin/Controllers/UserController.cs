@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using ShopOnline.AppAdmin.Services;
 using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -67,7 +68,7 @@ namespace ShopOnline.AppAdmin.Controllers
                             CookieAuthenticationDefaults.AuthenticationScheme,
                             userPrincipal,
                             authProp);
-            //HttpContext.Session.SetString("Token", token);
+            HttpContext.Session.SetString("Token", token);
             return RedirectToAction("Index", "Home");
         }
 
@@ -92,7 +93,11 @@ namespace ShopOnline.AppAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> ReadUserList()
         {
-            List<UserVM> userList = await _userService.ReadUserList();
+            ReadUserDto readUserDto = new ReadUserDto()
+            {
+                RawToken = HttpContext.Session.GetString("Token")
+            };
+            List<UserVM> userList = await _userService.ReadUserList(readUserDto);
             return View(userList);
         }
 

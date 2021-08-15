@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -84,7 +85,8 @@ namespace ShopOnline.BackendApi.Controllers
         [HttpGet("ReadUserList")]
         public string ReadUserList()
         {
-            return JsonConvert.SerializeObject(_userApiService.ReadUserList());
+            ReadUserDto readUserDto = new ReadUserDto();
+            return JsonConvert.SerializeObject(_userApiService.ReadUserList(readUserDto));
         }
 
     }

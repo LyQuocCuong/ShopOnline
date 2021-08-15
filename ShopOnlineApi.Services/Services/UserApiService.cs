@@ -1,5 +1,6 @@
 ﻿using ShopOnline.Data.Repositories.Definition;
 using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Services.IServices;
 using System;
 using System.Collections.Generic;
@@ -46,9 +47,9 @@ namespace ShopOnline.Services.Services
             return await _repository.SUSER_REPOSITORY.DeleteUser(userId);
         }
 
-        public List<UserVM> ReadUserList()
+        public List<UserVM> ReadUserList(ReadUserDto readUserDto)
         {
-            return _repository.SUSER_REPOSITORY.ReadUserList();
+            return _repository.SUSER_REPOSITORY.ReadUserList(readUserDto);
         }
     }
 }

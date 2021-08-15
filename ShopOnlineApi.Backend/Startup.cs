@@ -67,26 +67,26 @@ namespace ShopOnline.BackendApi
             string issuer = Configuration["Token:Issuer"];
             string secrectKey = Configuration["Token:Secrect_Key"];
             byte[] signingKeyBytes = Encoding.UTF8.GetBytes(secrectKey);
-            //services.AddAuthentication(opt =>
-            //{
-            //    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(options =>
-            //{
-            //    options.RequireHttpsMetadata = false;
-            //    options.SaveToken = true;
-            //    options.TokenValidationParameters = new TokenValidationParameters()
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidIssuer = issuer,
-            //        ValidateAudience = true,
-            //        ValidAudience = issuer,
-            //        ValidateIssuerSigningKey = true,
-            //        ClockSkew = System.TimeSpan.Zero,
-            //        IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
-            //    };
-            //});
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = issuer,
+                    ValidateAudience = true,
+                    ValidAudience = issuer,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = System.TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+                };
+            });
 
         }
 
@@ -111,9 +111,9 @@ namespace ShopOnline.BackendApi
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            //app.UseAuthentication();
-
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

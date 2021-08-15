@@ -34,6 +34,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnlineApi.Backend", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline.WebAdmin", "..\ShopOnline.WebAdmin\ShopOnline.WebAdmin.csproj", "{A35E11EA-3997-4DB4-B96D-D95589D1AA7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopOnline.Helpers", "..\ShopOnline.Helpers\ShopOnline.Helpers.csproj", "{EBBCAFF6-F164-4765-9B82-1FCC21DB56C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{A35E11EA-3997-4DB4-B96D-D95589D1AA7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A35E11EA-3997-4DB4-B96D-D95589D1AA7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A35E11EA-3997-4DB4-B96D-D95589D1AA7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBBCAFF6-F164-4765-9B82-1FCC21DB56C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBBCAFF6-F164-4765-9B82-1FCC21DB56C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBBCAFF6-F164-4765-9B82-1FCC21DB56C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBBCAFF6-F164-4765-9B82-1FCC21DB56C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{68B0B76F-231E-4EAC-B0C0-A36860E56307} = {23857FB9-E79A-4733-99DC-2C1E00E05E3F}
 		{A88630D0-792A-4C1A-8C63-22916D72583F} = {40A8ED8F-C6F0-42A6-B17E-FC474834929C}
 		{A35E11EA-3997-4DB4-B96D-D95589D1AA7D} = {7DFD71DF-C44A-4720-B42B-1F59211B5AF2}
+		{EBBCAFF6-F164-4765-9B82-1FCC21DB56C7} = {63461A4C-FA35-43FF-8C71-E3151521C2D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {63148EA9-1DE3-4C89-85E9-C37F161DB970}

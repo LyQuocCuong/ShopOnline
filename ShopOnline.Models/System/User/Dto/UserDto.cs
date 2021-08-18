@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShopOnline.Dto.System.User
+namespace ShopOnline.Models.System.User.Dto
 {
-    public class UserVM
+    public class UserDto
     {
         public Guid UserId { get; set; }
         public string FullName { get; set; }

@@ -1,5 +1,5 @@
 ﻿using ShopOnline.Data.Repositories.Definition;
-using ShopOnline.Dto.Catalog.Product;
+using ShopOnline.Models.Catalog.Product;
 using ShopOnline.Service.Private.IServices;
 using System;
 

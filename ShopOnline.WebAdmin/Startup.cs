@@ -8,7 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopOnline.AppAdmin.Services;
-using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User.Validator;
+using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace ShopOnline.AppAdmin
             });
 
             //DI Fluent Validation
-            services.AddTransient<IValidator<LoginUserDto>, LoginUserValidator>();
+            services.AddTransient<IValidator<LoginRequestDto>, LoginUserValidator>();
 
             //DI
             services.AddTransient<IUserService, UserService>();

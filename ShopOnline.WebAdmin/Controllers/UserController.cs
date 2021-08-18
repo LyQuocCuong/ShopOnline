@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using ShopOnline.AppAdmin.Services;
-using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User;
 using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
@@ -51,25 +51,31 @@ namespace ShopOnline.AppAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginUserDto loginUserDto)
+        public async Task<IActionResult> Login(LoginRequestDto loginRequestDto)
         {
             if (!ModelState.IsValid)
-                return View(ModelState);
-            string token = await _userService.Authenticate(loginUserDto);
-            
-            ClaimsPrincipal userPrincipal = this.ValidateToken(token);
-            //cookie
-            var authProp = new AuthenticationProperties()
+                return View(loginRequestDto);
+            string token = await _userService.GenerateTokenByLoginInfo(loginRequestDto);
+            if (!string.IsNullOrEmpty(token))
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1),
-                IsPersistent = true,
-            };
-            await HttpContext.SignInAsync(
-                            CookieAuthenticationDefaults.AuthenticationScheme,
-                            userPrincipal,
-                            authProp);
-            HttpContext.Session.SetString("Token", token);
-            return RedirectToAction("Index", "Home");
+                ClaimsPrincipal userPrincipal = this.ValidateToken(token);
+                //cookie
+                var authProp = new AuthenticationProperties()
+                {
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1),
+                    IsPersistent = true,
+                };
+                
+                await HttpContext.SignInAsync(
+                                CookieAuthenticationDefaults.AuthenticationScheme,
+                                userPrincipal,
+                                authProp);
+                
+                HttpContext.Session.SetString("Token", token);
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
         }
 
         private ClaimsPrincipal ValidateToken(string token)
@@ -97,8 +103,20 @@ namespace ShopOnline.AppAdmin.Controllers
             {
                 RawToken = HttpContext.Session.GetString("Token")
             };
-            List<UserVM> userList = await _userService.ReadUserList(readUserDto);
+            List<UserDto> userList = await _userService.ReadUserList(readUserDto);
             return View(userList);
+        }
+
+        [HttpGet]
+        public IActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(CreateUserDto createUserDto)
+        {
+            return View();
         }
 
     }

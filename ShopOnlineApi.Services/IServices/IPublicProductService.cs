@@ -1,4 +1,4 @@
-﻿using ShopOnline.Dto.Catalog.Product;
+﻿using ShopOnline.Models.Catalog.Product;
 using System;
 using System.Collections.Generic;
 

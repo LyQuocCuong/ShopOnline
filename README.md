@@ -262,3 +262,9 @@
 					return View();
 				}
 			}
+
+# SOApiHelper
+	- A base class with functions that help call to Backend_Api. Instead of writing agains everytime in every function.
+	- Why need to pass IHttpClientFactory variable, instead of declaring a variable in SOApiHelper
+		=> because it is initialized by DI mechanism of .NetCore
+	- Every request except AnonymousRequets need a Token (type JWT) to Identify user.

@@ -1,7 +1,7 @@
 ﻿using ShopOnline.Data.Entities;
 using ShopOnline.Data.Enums;
 using ShopOnline.Data.Repositories.Definition;
-using ShopOnline.Dto.Catalog.Product;
+using ShopOnline.Models.Catalog.Product;
 using System;
 
 namespace ShopOnline.Data.Repositories

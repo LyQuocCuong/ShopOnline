@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using ShopOnline.Dto.System.User;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Services.IServices;
 using System;
@@ -23,20 +22,19 @@ namespace ShopOnline.BackendApi.Controllers
             _userApiService = userApiService;
         }
 
+        /// <summary>
+        /// if Login succeed, then return a new jwt
+        /// </summary>
         [AllowAnonymous]
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
+        [HttpPost("GenerateTokenByLoginInfo")]
+        public async Task<string> GenerateTokenByLoginInfo([FromBody]LoginRequestDto loginRequestDto)
         {
-            if (!ModelState.IsValid)
+            string token = "";
+            if (await _userApiService.IsSucceedLogin(loginRequestDto))
             {
-                return BadRequest(ModelState);
+                token = await _userApiService.GenerateToken(loginRequestDto);
             }
-            string token = await _userApiService.GetJWT(loginUserDto);
-            if (!string.IsNullOrEmpty(token))
-            {
-                return Ok(token);
-            }
-            return BadRequest("Bad");
+            return token;
         }
 
         [AllowAnonymous]

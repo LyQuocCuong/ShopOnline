@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
+using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShopOnline.Dto.System.User
+namespace ShopOnline.Models.System.User.Validator
 {
     public class CreateUserValidator : AbstractValidator<CreateUserDto>
     {

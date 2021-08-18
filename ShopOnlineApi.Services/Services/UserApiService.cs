@@ -1,5 +1,5 @@
 ﻿using ShopOnline.Data.Repositories.Definition;
-using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Services.IServices;
 using System;
@@ -18,18 +18,14 @@ namespace ShopOnline.Services.Services
             _repository = repository;
         }
 
-        /// <summary>
-        /// Return a token if login succeed
-        /// </summary>
-        /// <returns>a token</returns>
-        public async Task<string> GetJWT(LoginUserDto loginUserDto)
+        public async Task<bool> IsSucceedLogin(LoginRequestDto loginUserDto)
         {
-            string token = "";
-            if (await _repository.SUSER_REPOSITORY.IsSucceedLogin(loginUserDto) == true)
-            {
-                token = await _repository.SUSER_REPOSITORY.GenerateJWT(loginUserDto.Username);
-            }
-            return token;
+            return await _repository.SUSER_REPOSITORY.IsSucceedLogin(loginUserDto);
+        }
+
+        public async Task<string> GenerateToken(LoginRequestDto loginUserDto)
+        {
+            return await _repository.SUSER_REPOSITORY.GenerateToken(loginUserDto.Username);
         }
 
         public async Task<bool> CreateUser(CreateUserDto createUserDto)
@@ -47,7 +43,7 @@ namespace ShopOnline.Services.Services
             return await _repository.SUSER_REPOSITORY.DeleteUser(userId);
         }
 
-        public List<UserVM> ReadUserList(ReadUserDto readUserDto)
+        public List<UserDto> ReadUserList(ReadUserDto readUserDto)
         {
             return _repository.SUSER_REPOSITORY.ReadUserList(readUserDto);
         }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopOnline.Dto.Catalog.Product
+namespace ShopOnline.Models.Catalog.Product
 {
     public class ProductCreateDto
     {

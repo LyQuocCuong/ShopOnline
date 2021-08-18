@@ -1,29 +1,40 @@
-﻿@model List<ShopOnline.Dto.System.User.UserVM>
+﻿@model List<ShopOnline.Models.System.User.Dto.UserDto>
 
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Users List</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Users</li>
+        <li class="breadcrumb-item active">Users List</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" href="/User/CreateUser">Create</a>
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>FullName</th>
+                        <th>Username</th>
+                        <th>DOB</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.FullName</td>
+                            <td>@user.Username</td>
+                            <td>@user.DOB</td>
+                            <td>@user.Email</td>
+                            <td>@user.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

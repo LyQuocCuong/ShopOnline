@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User;
 using ShopOnline.Helpers.ShopOnlineApi;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Utilities.Consts;
@@ -22,16 +22,15 @@ namespace ShopOnline.AppAdmin.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<string> Authenticate(LoginUserDto loginUserDto)
+        public async Task<string> GenerateTokenByLoginInfo(LoginRequestDto loginRequestDto)
         {
-            ShopOnlineApiParams apiParams = new ShopOnlineApiParams()
+            SOApiContentRequest contentApiRequest = new SOApiContentRequest()
             {
                 HttpClientFactory = _httpClientFactory,
-                UrlPath = "/UserApi/Login",
-                Content = loginUserDto
+                UrlPath = "/UserApi/GenerateTokenByLoginInfo",
+                Data = loginRequestDto
             };
-            string jsonResult = await ShopOnlineApiHelper.PostMethodAnonymous(apiParams);
-            return jsonResult;
+            return await SOApiHelper.ExecutePostMethodAnonymous(contentApiRequest);
         }
 
         public Task<bool> CreateUser(CreateUserDto createUserDto)
@@ -44,16 +43,16 @@ namespace ShopOnline.AppAdmin.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<UserVM>> ReadUserList(ReadUserDto readUserDto)
+        public async Task<List<UserDto>> ReadUserList(ReadUserDto readUserDto)
         {
-            ShopOnlineApiParams apiParams = new ShopOnlineApiParams()
+            SOApiContentRequest apiParams = new SOApiContentRequest()
             {
                 HttpClientFactory = _httpClientFactory,
                 UrlPath = "/UserApi/ReadUserList",
                 Token = readUserDto.RawToken,
             };
-            string jsonResult = await ShopOnlineApiHelper.GetMethod(apiParams);
-            List<UserVM> userList = JsonConvert.DeserializeObject<List<UserVM>>(jsonResult);
+            string jsonResult = await SOApiHelper.ExecuteGetMethod(apiParams);
+            List<UserDto> userList = JsonConvert.DeserializeObject<List<UserDto>>(jsonResult);
             return userList;
         }
 

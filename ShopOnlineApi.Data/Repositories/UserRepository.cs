@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ShopOnline.Data.Entities;
 using ShopOnline.Data.Repositories.Definition;
-using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User;
 using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
@@ -21,10 +21,14 @@ namespace ShopOnline.Data.Repositories
         {
         }
 
-        public async Task<bool> IsSucceedLogin(LoginUserDto loginUserDto)
+        public async Task<bool> IsSucceedLogin(LoginRequestDto loginUserDto)
         {
             S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(loginUserDto.Username);
-            if (user == null) return false;
+            if (user == null)
+            {
+                //Log Here
+                return false;
+            }
             SignInResult resultLogin = await Repository.SysApi_SignInManager
                                                 .PasswordSignInAsync(
                                                         user,
@@ -34,10 +38,14 @@ namespace ShopOnline.Data.Repositories
             return resultLogin.Succeeded;
         }
 
-        public async Task<string> GenerateJWT(string username)
+        public async Task<string> GenerateToken(string username)
         {
             S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(username);
-            if (user == null) return "";
+            if (user == null)
+            {
+                //Log Here
+                return "";
+            };
             List<string> roleNameList = (List<string>)await Repository.SysApi_UserManager.GetRolesAsync(user);
 
             Claim[] userInfo = new[]
@@ -100,13 +108,13 @@ namespace ShopOnline.Data.Repositories
             return false;
         }
 
-        public List<UserVM> ReadUserList(ReadUserDto readUserDto)
+        public List<UserDto> ReadUserList(ReadUserDto readUserDto)
         {
-            List<UserVM> userList = new List<UserVM>();
+            List<UserDto> userList = new List<UserDto>();
             try
             {
                 userList = DataSet.Where(u => !u.IS_DELETED)
-                                  .Select(u => new UserVM()
+                                  .Select(u => new UserDto()
                                   {
                                       UserId = u.Id,
                                       Username = u.UserName,

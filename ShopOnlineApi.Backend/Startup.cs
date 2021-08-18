@@ -14,7 +14,8 @@ using ShopOnline.BackendApi.Extensions;
 using ShopOnline.Data.EF;
 using ShopOnline.Data.Entities;
 using ShopOnline.Data.Repositories.Definition;
-using ShopOnline.Dto.System.User;
+using ShopOnline.Models.System.User.Validator;
+using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Service.Public.IServices;
 using ShopOnline.Service.Services;
 using ShopOnline.Services.IServices;
@@ -55,7 +56,7 @@ namespace ShopOnline.BackendApi
             services.AddTransient<SignInManager<S_USER>, SignInManager<S_USER>>();
 
             //DI for Fluent Validator
-            services.AddTransient<IValidator<LoginUserDto>, LoginUserValidator>();
+            services.AddTransient<IValidator<LoginRequestDto>, LoginUserValidator>();
             services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
 
             //DI

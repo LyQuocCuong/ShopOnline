@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ShopOnline.Dto.System.User
+namespace ShopOnline.Models.System.User.Dto
 {
     public class UpdateUserDto
     {

@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopOnline.AppAdmin.Controllers
+namespace ShopOnline.WebAdmin.Controllers
 {
     [Authorize]
     public class HomeController : Controller

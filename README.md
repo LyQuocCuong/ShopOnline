@@ -268,3 +268,14 @@
 	- Why need to pass IHttpClientFactory variable, instead of declaring a variable in SOApiHelper
 		=> because it is initialized by DI mechanism of .NetCore
 	- Every request except AnonymousRequets need a Token (type JWT) to Identify user.
+
+# LoginController. Why need to seperate Login from UserControlelr ?
+	1) I need to get Token to call Backend-API request
+		=> To do that I override OnActionExecuting to check Token and use it as a BaseController.
+	2) If Login and User are in a same Controller, the Login request will run into the BaseControler.
+		=> infinity loop will happen
+	3) LoginController don't use BaseController
+
+# SystemContst
+	- Contain system_value
+	- NOT save Token in Static variable because of every Token is different between Users 

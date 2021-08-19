@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ShopOnline.Utilities.Consts;
 
 namespace ShopOnline.AppAdmin
 {
@@ -30,13 +31,15 @@ namespace ShopOnline.AppAdmin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
-            //Using HttpClient
+            //Using HttpClient to call to Backend_API
             services.AddHttpClient();
 
+            //When calling to an Authorize Controller. It will check if the cookie is valid
+            //If don't then redirect to LoginPath and the currentURL become ReturnUrl param in LoginPath
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
                     {
-                        options.LoginPath = "/User/Login";
+                        options.LoginPath = "/Login/Index";
                         options.Cookie.Name = "CuongCookie";
                         options.Cookie.HttpOnly = true;
                         options.Cookie.IsEssential = true;
@@ -46,7 +49,7 @@ namespace ShopOnline.AppAdmin
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.IdleTimeout = TimeSpan.FromMinutes(SystemConst.TIMELIFE_SESSION_MINUTES);
                 options.Cookie.Name = "CuongSessionCookie";
             });
 

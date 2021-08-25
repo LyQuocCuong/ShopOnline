@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.BackendApi.Controllers
 {
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
     public class UserApiController : Controller
@@ -25,45 +26,44 @@ namespace ShopOnline.BackendApi.Controllers
         /// if Login succeed, then return a new jwt
         /// </summary>
         [AllowAnonymous]
-        [HttpPost]
-        public async Task<string> GenerateTokenByLoginInfo([FromBody]LoginRequestDto loginRequestDto)
+        [HttpPost("GetToken")]
+        public async Task<string> GetToken([FromBody]LoginInfoDto loginInfoDto)
         {
             string token = "";
-            if (await _userApiService.IsSucceedLogin(loginRequestDto))
+            if (await _userApiService.IsSucceedLogin(loginInfoDto))
             {
-                token = await _userApiService.GenerateToken(loginRequestDto);
+                token = await _userApiService.GenerateToken(loginInfoDto.UserName);
             }
             return token;
         }
 
         //https:localhost/UserApi/Create
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<bool> Create([FromBody]CreateUserDto createUserDto)
         {
             return await _userApiService.Create(createUserDto);
         }
 
-        [HttpPut]
+        [HttpPut("UpdateBasicInfo")]
         public async Task<bool> UpdateBasicInfo([FromBody] UserBasicInfoDto basicInfoDto)
         {
             return await _userApiService.UpdateBasicInfo(basicInfoDto);
         }
 
-        [HttpPut]
+        [HttpPut("UpdatePassword")]
         public async Task<bool> UpdatePassword([FromQuery] Guid userId, [FromBody] string newPassword)
         {
             return await _userApiService.UpdatePassword(userId, newPassword);
         }
 
-        [HttpGet]
+        [HttpGet("GetUserList")]
         public string GetUserList()
         {
             ReadUserDto readUserDto = new ReadUserDto();
             return JsonConvert.SerializeObject(_userApiService.GetUserList(readUserDto));
         }
 
-        //https:localhost/UserApi/Create
-        [HttpGet]
+        [HttpGet("GetByUserId")]
         public async Task<string> GetByUserId([FromQuery]Guid userId)
         {
             ReadUserDto readUserDto = new ReadUserDto();

@@ -22,10 +22,10 @@ namespace ShopOnline.AppAdmin.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<string> GenerateTokenByLoginInfo(LoginRequestDto loginRequestDto)
+        public async Task<string> GetToken(LoginInfoDto loginInfoDto)
         {
-            string urlPath = "/UserApi/GenerateTokenByLoginInfo";
-            return await SOApiHelper.ExecutePostMethodAnonymous(_httpClientFactory, urlPath, loginRequestDto);
+            string urlPath = "/UserApi/GetToken";
+            return await SOApiHelper.ExecutePostMethodAnonymous(_httpClientFactory, urlPath, loginInfoDto);
         }
 
         public async Task<bool> Create(string token, CreateUserDto createUserDto)

@@ -54,7 +54,7 @@ namespace ShopOnline.AppAdmin
             });
 
             //DI for Fluent Validation
-            services.AddTransient<IValidator<LoginRequestDto>, LoginUserValidator>();
+            services.AddTransient<IValidator<LoginInfoDto>, LoginUserValidator>();
             services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
 
             //DI

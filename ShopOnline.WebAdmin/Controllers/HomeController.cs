@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.WebAdmin.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

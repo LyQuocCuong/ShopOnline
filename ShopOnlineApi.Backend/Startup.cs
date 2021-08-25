@@ -56,8 +56,8 @@ namespace ShopOnline.BackendApi
             services.AddTransient<SignInManager<S_USER>, SignInManager<S_USER>>();
 
             //DI for Fluent Validator
-            services.AddTransient<IValidator<LoginRequestDto>, LoginUserValidator>();
-            services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
+            //services.AddTransient<IValidator<LoginRequestDto>, LoginUserValidator>();
+            //services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
 
             //DI
             services.AddTransient<ShopOnlineRepository, ShopOnlineRepository>();

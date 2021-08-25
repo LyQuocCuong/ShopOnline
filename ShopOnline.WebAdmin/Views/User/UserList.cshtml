@@ -9,7 +9,7 @@
     </ol>
     <div class="card mb-4">
         <div class="card-header">
-            <a class="btn btn-success" href="/User/CreateUser">Create</a>
+            <a class="btn btn-success" href="/User/Create">Create</a>
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
@@ -20,6 +20,7 @@
                         <th>DOB</th>
                         <th>Email</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,10 @@
                             <td>@user.DOB</td>
                             <td>@user.Email</td>
                             <td>@user.Status</td>
+                            <td>
+                                <a class="btn btn-primary" href="/User/Update?userId=@user.UserId">Edit</a>
+                                <a class="btn btn-danger" href="/User/Delete?userId=@user.UserId">Delete</a>
+                            </td>
                         </tr>
                     }
                 </tbody>

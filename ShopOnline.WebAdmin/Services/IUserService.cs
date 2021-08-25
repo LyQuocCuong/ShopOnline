@@ -10,9 +10,10 @@ namespace ShopOnline.AppAdmin.Services
     public interface IUserService
     {
         Task<string> GenerateTokenByLoginInfo(LoginRequestDto loginRequestDto);
-        public Task<bool> CreateUser(CreateUserDto createUserDto);
-        public Task<bool> UpdateUser(UpdateUserDto updateUserDto);
-        public Task<bool> DeleteUser(Guid userId);
-        public Task<List<UserDto>> ReadUserList(ReadUserDto readUserDto);
+        Task<bool> Create(string token, CreateUserDto createUserDto);
+        Task<bool> UpdateBasicInfo(string token, UserBasicInfoDto basicInfoDto);
+        Task<bool> UpdatePassword(string token, Guid userId, string newPassword);
+        Task<List<UserDto>> GetUserList(string token, ReadUserDto readUserDto);
+        Task<UserDto> GetByUserId(string token, Guid userId);
     }
 }

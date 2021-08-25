@@ -66,37 +66,60 @@ namespace ShopOnline.Data.Repositories
             return new JwtSecurityTokenHandler().WriteToken(tokenInfo);
         }
 
-        public async Task<bool> CreateUser(CreateUserDto createUserDto)
+        private async Task<bool> IsExistingInfo(CreateUserDto userDto)
         {
-            S_USER newUser = new S_USER()
-            {
-                Id = Guid.NewGuid(),
-                UserName = createUserDto.Username,
-                PasswordHash = createUserDto.RawPassword,
-                FULL_NAME = createUserDto.Fullname,
-                DOB = createUserDto.DOB,
-                STATUS = Enums.UserStatus.Activated,
-                IS_DELETED = false,
-            };
-            var result = await Repository.SysApi_UserManager.CreateAsync(newUser, createUserDto.RawPassword);
-            return result.Succeeded;
+            return await Repository.SysApi_UserManager.FindByNameAsync(userDto.Username) != null ||
+                   await Repository.SysApi_UserManager.FindByEmailAsync(userDto.Email) != null;
         }
 
-        public async Task<bool> UpdateUser(UpdateUserDto updateUserDto)
+        public async Task<bool> Create(CreateUserDto createUserDto)
         {
-            S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == updateUserDto.UserId);
+            if (await IsExistingInfo(createUserDto) == false)
+            {
+                S_USER newUser = new S_USER()
+                {
+                    Id = Guid.NewGuid(),
+                    UserName = createUserDto.Username,
+                    PasswordHash = createUserDto.RawPassword,
+                    Email = createUserDto.Email,
+                    FULL_NAME = createUserDto.FullName,
+                    DOB = createUserDto.DOB,
+                    STATUS = Enums.UserStatus.Activated,
+                    IS_DELETED = false,
+                };
+                var result = await Repository.SysApi_UserManager.CreateAsync(newUser, createUserDto.RawPassword);
+                return result.Succeeded;
+            }
+            return false;
+        }
+
+        public async Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
+        {
+            S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == basicInfoDto.UserId);
             if (existingUser != null)
             {
-                existingUser.FULL_NAME = updateUserDto.FullName;
-                existingUser.DOB = updateUserDto.DOB;
-                existingUser.Email = updateUserDto.Email;
+                existingUser.FULL_NAME = basicInfoDto.FullName;
+                existingUser.DOB = basicInfoDto.DOB;
+                existingUser.Email = basicInfoDto.Email;
                 var result = await Repository.SysApi_UserManager.UpdateAsync(existingUser);
                 return result.Succeeded;
             };
             return false;
         }
 
-        public async Task<bool> DeleteUser(Guid userId)
+        public async Task<bool> UpdatePassword(Guid userId, string newPassword)
+        {
+            S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == userId);
+            if (existingUser != null)
+            {
+                existingUser.PasswordHash = newPassword;
+                var result = await Repository.SysApi_UserManager.UpdateAsync(existingUser);
+                return result.Succeeded;
+            };
+            return false;
+        }
+
+        public async Task<bool> Delete(Guid userId)
         {
             S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == userId);
             if (existingUser != null)
@@ -108,12 +131,33 @@ namespace ShopOnline.Data.Repositories
             return false;
         }
 
-        public List<UserDto> ReadUserList(ReadUserDto readUserDto)
+        public async Task<UserDto> GetByUserId(Guid userId)
+        {
+            S_USER user = await Repository.SysApi_UserManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                //Log Here
+                return new UserDto();
+            }
+            UserDto userDto = new UserDto()
+            {
+                UserId = user.Id,
+                FullName = user.FULL_NAME,
+                Username = user.UserName,
+                DOB = user.DOB,
+                Email = user.Email,
+                Status = user.STATUS
+            };
+            return userDto;
+        }
+
+        public List<UserDto> GetUserList(ReadUserDto readUserDto)
         {
             List<UserDto> userList = new List<UserDto>();
             try
             {
                 userList = DataSet.Where(u => !u.IS_DELETED)
+                                  .OrderBy(u => u.UserName)
                                   .Select(u => new UserDto()
                                   {
                                       UserId = u.Id,

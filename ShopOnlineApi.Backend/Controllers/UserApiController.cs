@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.BackendApi.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
     [Authorize]
     public class UserApiController : Controller
@@ -26,7 +25,7 @@ namespace ShopOnline.BackendApi.Controllers
         /// if Login succeed, then return a new jwt
         /// </summary>
         [AllowAnonymous]
-        [HttpPost("GenerateTokenByLoginInfo")]
+        [HttpPost]
         public async Task<string> GenerateTokenByLoginInfo([FromBody]LoginRequestDto loginRequestDto)
         {
             string token = "";
@@ -37,54 +36,38 @@ namespace ShopOnline.BackendApi.Controllers
             return token;
         }
 
-        [AllowAnonymous]
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromForm]CreateUserDto createUserDto)
+        //https:localhost/UserApi/Create
+        [HttpPost]
+        public async Task<bool> Create([FromBody]CreateUserDto createUserDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (await _userApiService.CreateUser(createUserDto) == true)
-            {
-                return Ok("Successfully");
-            }
-            return BadRequest("Bad");
+            return await _userApiService.Create(createUserDto);
         }
 
-        [HttpPost("UpdateUser")]
-        public async Task<IActionResult> UpdateUser([FromForm]UpdateUserDto updateUserDto)
+        [HttpPut]
+        public async Task<bool> UpdateBasicInfo([FromBody] UserBasicInfoDto basicInfoDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (await _userApiService.UpdateUser(updateUserDto) == true)
-            {
-                return Ok("Successfully");
-            }
-            return BadRequest("Bad");
+            return await _userApiService.UpdateBasicInfo(basicInfoDto);
         }
 
-        [HttpPost("DeleteUser")]
-        public async Task<IActionResult> DeleteUser([FromQuery] Guid userId)
+        [HttpPut]
+        public async Task<bool> UpdatePassword([FromQuery] Guid userId, [FromBody] string newPassword)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if (await _userApiService.DeleteUser(userId) == true)
-            {
-                return Ok("Successfully");
-            }
-            return BadRequest("Bad");
+            return await _userApiService.UpdatePassword(userId, newPassword);
         }
 
-        [HttpGet("ReadUserList")]
-        public string ReadUserList()
+        [HttpGet]
+        public string GetUserList()
         {
             ReadUserDto readUserDto = new ReadUserDto();
-            return JsonConvert.SerializeObject(_userApiService.ReadUserList(readUserDto));
+            return JsonConvert.SerializeObject(_userApiService.GetUserList(readUserDto));
+        }
+
+        //https:localhost/UserApi/Create
+        [HttpGet]
+        public async Task<string> GetByUserId([FromQuery]Guid userId)
+        {
+            ReadUserDto readUserDto = new ReadUserDto();
+            return JsonConvert.SerializeObject(await _userApiService.GetByUserId(userId));
         }
 
     }

@@ -28,24 +28,34 @@ namespace ShopOnline.Services.Services
             return await _repository.SUSER_REPOSITORY.GenerateToken(loginUserDto.Username);
         }
 
-        public async Task<bool> CreateUser(CreateUserDto createUserDto)
+        public async Task<bool> Create(CreateUserDto createUserDto)
         {
-            return await _repository.SUSER_REPOSITORY.CreateUser(createUserDto);
+            return await _repository.SUSER_REPOSITORY.Create(createUserDto);
         }
 
-        public async Task<bool> UpdateUser(UpdateUserDto updateUserDto)
+        public async Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
         {
-            return await _repository.SUSER_REPOSITORY.UpdateUser(updateUserDto);
+            return await _repository.SUSER_REPOSITORY.UpdateBasicInfo(basicInfoDto);
         }
 
-        public async Task<bool> DeleteUser(Guid userId)
+        public async Task<bool> UpdatePassword(Guid userId, string newPassword)
         {
-            return await _repository.SUSER_REPOSITORY.DeleteUser(userId);
+            return await _repository.SUSER_REPOSITORY.UpdatePassword(userId, newPassword);
         }
 
-        public List<UserDto> ReadUserList(ReadUserDto readUserDto)
+        public async Task<bool> Delete(Guid userId)
         {
-            return _repository.SUSER_REPOSITORY.ReadUserList(readUserDto);
+            return await _repository.SUSER_REPOSITORY.Delete(userId);
+        }
+
+        public List<UserDto> GetUserList(ReadUserDto readUserDto)
+        {
+            return _repository.SUSER_REPOSITORY.GetUserList(readUserDto);
+        }
+
+        public async Task<UserDto> GetByUserId(Guid userId)
+        {
+            return await _repository.SUSER_REPOSITORY.GetByUserId(userId);
         }
     }
 }

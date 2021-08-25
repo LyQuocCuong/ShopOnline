@@ -19,6 +19,9 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.WebAdmin.Controllers
 {
+    /// <summary>
+    /// DON"T APPLY BASECONTROLLER
+    /// </summary>
     public class LoginController : Controller
     {
         private readonly IConfiguration _configuration;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ShopOnline.Models.System.User.Dto
 {
-    public class UpdateUserDto
+    public class UserBasicInfoDto
     {
         public Guid UserId { get; set; }
         public string FullName { get; set; }

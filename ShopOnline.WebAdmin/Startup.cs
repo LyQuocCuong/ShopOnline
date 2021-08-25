@@ -53,8 +53,9 @@ namespace ShopOnline.AppAdmin
                 options.Cookie.Name = "CuongSessionCookie";
             });
 
-            //DI Fluent Validation
+            //DI for Fluent Validation
             services.AddTransient<IValidator<LoginRequestDto>, LoginUserValidator>();
+            services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
 
             //DI
             services.AddTransient<IUserService, UserService>();
@@ -91,6 +92,7 @@ namespace ShopOnline.AppAdmin
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                    //Using for Mapping id for Get/Post request (update, delete)
             });
         }
     }

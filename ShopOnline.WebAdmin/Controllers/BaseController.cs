@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ShopOnline.Utilities.Consts;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.WebAdmin.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -18,7 +20,7 @@ namespace ShopOnline.WebAdmin.Controllers
             var token = context.HttpContext.Session.GetString(SystemConst.TOKEN_NAME);
             if (string.IsNullOrEmpty(token))
             {
-                context.Result = new RedirectToActionResult("Login", "Index", null);
+                context.Result = new RedirectToActionResult("Index", "Login", null);
             }
             base.OnActionExecuting(context);
         }

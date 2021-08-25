@@ -6,11 +6,11 @@ using System.Text;
 
 namespace ShopOnline.Models.System.User.Validator
 {
-    public class LoginUserValidator : AbstractValidator<LoginRequestDto>
+    public class LoginUserValidator : AbstractValidator<LoginInfoDto>
     {
         public LoginUserValidator()
         {
-            RuleFor(x => x.Username).NotEmpty();
+            RuleFor(x => x.UserName).NotEmpty();
             RuleFor(x => x.Password).NotEmpty();
             RuleFor(x => x.IsRemember);
         }

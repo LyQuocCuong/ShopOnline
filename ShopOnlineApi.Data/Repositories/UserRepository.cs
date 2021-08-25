@@ -5,6 +5,7 @@ using ShopOnline.Data.Entities;
 using ShopOnline.Data.Repositories.Definition;
 using ShopOnline.Models.System.User;
 using ShopOnline.Models.System.User.Dto;
+using ShopOnline.Utilities.Consts;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,9 +22,9 @@ namespace ShopOnline.Data.Repositories
         {
         }
 
-        public async Task<bool> IsSucceedLogin(LoginRequestDto loginUserDto)
+        public async Task<bool> IsSucceedLogin(LoginInfoDto loginInfoDto)
         {
-            S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(loginUserDto.Username);
+            S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(loginInfoDto.UserName);
             if (user == null)
             {
                 //Log Here
@@ -32,15 +33,15 @@ namespace ShopOnline.Data.Repositories
             SignInResult resultLogin = await Repository.SysApi_SignInManager
                                                 .PasswordSignInAsync(
                                                         user,
-                                                        loginUserDto.Password,
-                                                        loginUserDto.IsRemember,
+                                                        loginInfoDto.Password,
+                                                        loginInfoDto.IsRemember,
                                                         false);
             return resultLogin.Succeeded;
         }
 
-        public async Task<string> GenerateToken(string username)
+        public async Task<string> GenerateToken(string userName)
         {
-            S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(username);
+            S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(userName);
             if (user == null)
             {
                 //Log Here
@@ -50,7 +51,7 @@ namespace ShopOnline.Data.Repositories
 
             Claim[] userInfo = new[]
             {
-                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.Role, string.Join(",", roleNameList))
             };
 
@@ -61,12 +62,12 @@ namespace ShopOnline.Data.Repositories
                 Repository.Configuration["Token:Issuer"],
                 Repository.Configuration["Token:Issuer"],
                 userInfo,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMinutes(SystemConst.TIMELIFE_TOKEN_MINUTES),
                 signingCredentials: signatureFormat);
             return new JwtSecurityTokenHandler().WriteToken(tokenInfo);
         }
 
-        private async Task<bool> IsExistingInfo(CreateUserDto userDto)
+        private async Task<bool> IsDuplicatedInfo(CreateUserDto userDto)
         {
             return await Repository.SysApi_UserManager.FindByNameAsync(userDto.Username) != null ||
                    await Repository.SysApi_UserManager.FindByEmailAsync(userDto.Email) != null;
@@ -74,7 +75,7 @@ namespace ShopOnline.Data.Repositories
 
         public async Task<bool> Create(CreateUserDto createUserDto)
         {
-            if (await IsExistingInfo(createUserDto) == false)
+            if (await IsDuplicatedInfo(createUserDto) == false)
             {
                 S_USER newUser = new S_USER()
                 {

@@ -18,14 +18,14 @@ namespace ShopOnline.Services.Services
             _repository = repository;
         }
 
-        public async Task<bool> IsSucceedLogin(LoginRequestDto loginUserDto)
+        public async Task<bool> IsSucceedLogin(LoginInfoDto loginInfoDto)
         {
-            return await _repository.SUSER_REPOSITORY.IsSucceedLogin(loginUserDto);
+            return await _repository.SUSER_REPOSITORY.IsSucceedLogin(loginInfoDto);
         }
 
-        public async Task<string> GenerateToken(LoginRequestDto loginUserDto)
+        public async Task<string> GenerateToken(string userName)
         {
-            return await _repository.SUSER_REPOSITORY.GenerateToken(loginUserDto.Username);
+            return await _repository.SUSER_REPOSITORY.GenerateToken(userName);
         }
 
         public async Task<bool> Create(CreateUserDto createUserDto)

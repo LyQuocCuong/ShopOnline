@@ -9,7 +9,7 @@ namespace ShopOnline.AppAdmin.Services
 {
     public interface IUserService
     {
-        Task<string> GenerateTokenByLoginInfo(LoginRequestDto loginRequestDto);
+        Task<string> GetToken(LoginInfoDto loginInfoDto);
         Task<bool> Create(string token, CreateUserDto createUserDto);
         Task<bool> UpdateBasicInfo(string token, UserBasicInfoDto basicInfoDto);
         Task<bool> UpdatePassword(string token, Guid userId, string newPassword);

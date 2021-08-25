@@ -9,8 +9,8 @@ namespace ShopOnline.Services.IServices
 {
     public interface IUserApiService
     {
-        Task<bool> IsSucceedLogin(LoginRequestDto loginUserDto);
-        Task<string> GenerateToken(LoginRequestDto loginUserDto);
+        Task<bool> IsSucceedLogin(LoginInfoDto loginInfoDto);
+        Task<string> GenerateToken(string userName);
         Task<bool> Create(CreateUserDto createUserDto);
         Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto);
         Task<bool> UpdatePassword(Guid userId, string newPassword);

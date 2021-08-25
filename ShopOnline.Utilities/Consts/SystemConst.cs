@@ -11,6 +11,7 @@ namespace ShopOnline.Utilities.Consts
         public static readonly string TOKEN_NAME = "Token";
         public static readonly int TIMELIFE_COOKIE_MINUTES = 30;
         public static readonly int TIMELIFE_SESSION_MINUTES = 30;
+        public static readonly int TIMELIFE_TOKEN_MINUTES = 30;
 
         #endregion
 

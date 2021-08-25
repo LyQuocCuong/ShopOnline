@@ -45,11 +45,11 @@ namespace ShopOnline.WebAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(LoginRequestDto loginRequestDto)
+        public async Task<IActionResult> Index(LoginInfoDto loginInfoDto)
         {
             if (!ModelState.IsValid)
-                return View(loginRequestDto);
-            string token = await _userService.GenerateTokenByLoginInfo(loginRequestDto);
+                return View(loginInfoDto);
+            string token = await _userService.GetToken(loginInfoDto);
             if (!string.IsNullOrEmpty(token))
             {
                 ClaimsPrincipal userPrincipal = this.ValidateToken(token);

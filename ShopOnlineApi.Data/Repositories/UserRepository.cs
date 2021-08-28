@@ -62,7 +62,7 @@ namespace ShopOnline.Data.Repositories
                 Repository.Configuration["Token:Issuer"],
                 Repository.Configuration["Token:Issuer"],
                 userInfo,
-                expires: DateTime.Now.AddMinutes(SystemConst.TIMELIFE_TOKEN_MINUTES),
+                expires: DateTime.Now.AddMinutes(SystemValue.TIMELIFE_TOKEN_MINUTES),
                 signingCredentials: signatureFormat);
             return new JwtSecurityTokenHandler().WriteToken(tokenInfo);
         }

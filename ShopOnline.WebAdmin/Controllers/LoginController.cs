@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
-using ShopOnline.AppAdmin.Services;
+using ShopOnline.WebAdmin.Services;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Utilities.Consts;
 using System;
@@ -40,7 +40,7 @@ namespace ShopOnline.WebAdmin.Controllers
         public async Task<IActionResult> Index()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Remove(SystemConst.TOKEN_NAME);
+            HttpContext.Session.Remove(SystemValue.TOKEN_NAME);
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace ShopOnline.WebAdmin.Controllers
                 //cookie
                 var authProp = new AuthenticationProperties()
                 {
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(SystemConst.TIMELIFE_COOKIE_MINUTES),
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(SystemValue.TIMELIFE_COOKIE_MINUTES),
                     IsPersistent = true,
                 };
 
@@ -67,7 +67,7 @@ namespace ShopOnline.WebAdmin.Controllers
                                 userPrincipal,
                                 authProp);
 
-                HttpContext.Session.SetString(SystemConst.TOKEN_NAME, token);
+                HttpContext.Session.SetString(SystemValue.TOKEN_NAME, token);
 
                 return RedirectToAction("Index", "Home");
             }

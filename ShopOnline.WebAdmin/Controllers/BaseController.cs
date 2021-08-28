@@ -17,7 +17,7 @@ namespace ShopOnline.WebAdmin.Controllers
         {
             //Why need to do that ?
             //We need the Token for calling every API request and API authen by JWT mechanism
-            var token = context.HttpContext.Session.GetString(SystemConst.TOKEN_NAME);
+            var token = context.HttpContext.Session.GetString(SystemValue.TOKEN_NAME);
             if (string.IsNullOrEmpty(token))
             {
                 context.Result = new RedirectToActionResult("Index", "Login", null);

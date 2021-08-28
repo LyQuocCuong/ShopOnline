@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ShopOnline.Utilities.Consts
 {
-    public static class SystemConst
+    public static class SystemValue
     {
         #region TOKEN - AUTHENTICATE
 

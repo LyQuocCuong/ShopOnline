@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ShopOnline.AppAdmin.Services;
+using ShopOnline.WebAdmin.Services;
 using ShopOnline.Models.System.User.Validator;
 using ShopOnline.Models.System.User.Dto;
 using System;
@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ShopOnline.Utilities.Consts;
+using Microsoft.AspNetCore.Http;
 
 namespace ShopOnline.AppAdmin
 {
@@ -34,6 +35,9 @@ namespace ShopOnline.AppAdmin
             //Using HttpClient to call to Backend_API
             services.AddHttpClient();
 
+            //Help to get HttpClient value in Service module
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             //When calling to an Authorize Controller. It will check if the cookie is valid
             //If don't then redirect to LoginPath and the currentURL become ReturnUrl param in LoginPath
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -49,7 +53,7 @@ namespace ShopOnline.AppAdmin
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(SystemConst.TIMELIFE_SESSION_MINUTES);
+                options.IdleTimeout = TimeSpan.FromMinutes(SystemValue.TIMELIFE_SESSION_MINUTES);
                 options.Cookie.Name = "CuongSessionCookie";
             });
 

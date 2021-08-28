@@ -14,11 +14,11 @@ namespace ShopOnline.Helpers.ShopOnlineApi
         private static HttpClient SetupConfig(IHttpClientFactory httpClientFactory, string token = null)
         {
             HttpClient httpClient = httpClientFactory.CreateClient();
-            httpClient.BaseAddress = new Uri(SystemConst.SHOPONLINE_API_BASE_ADDRESS);
+            httpClient.BaseAddress = new Uri(SystemValue.SHOPONLINE_API_BASE_ADDRESS);
             if (!string.IsNullOrEmpty(token))
             {
                 httpClient.DefaultRequestHeaders
-                    .Authorization = new AuthenticationHeaderValue(SystemConst.PREFIX_TOKEN, token);
+                    .Authorization = new AuthenticationHeaderValue(SystemValue.PREFIX_TOKEN, token);
             }
             return httpClient;
         }

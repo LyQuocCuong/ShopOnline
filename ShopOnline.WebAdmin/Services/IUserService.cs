@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopOnline.AppAdmin.Services
+namespace ShopOnline.WebAdmin.Services
 {
     public interface IUserService
     {
         Task<string> GetToken(LoginInfoDto loginInfoDto);
-        Task<bool> Create(string token, CreateUserDto createUserDto);
-        Task<bool> UpdateBasicInfo(string token, UserBasicInfoDto basicInfoDto);
-        Task<bool> UpdatePassword(string token, Guid userId, string newPassword);
-        Task<List<UserDto>> GetUserList(string token, ReadUserDto readUserDto);
-        Task<UserDto> GetByUserId(string token, Guid userId);
+        Task<bool> Create(CreateUserDto createUserDto);
+        Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto);
+        Task<bool> UpdatePassword(Guid userId, string newPassword);
+        Task<List<UserDto>> GetUserList(ReadUserDto readUserDto);
+        Task<UserDto> GetByUserId(Guid userId);
     }
 }

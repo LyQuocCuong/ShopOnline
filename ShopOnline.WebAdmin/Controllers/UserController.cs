@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ShopOnline.AppAdmin.Services;
+using ShopOnline.WebAdmin.Services;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Utilities.Consts;
 using System;
@@ -34,12 +34,8 @@ namespace ShopOnline.WebAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserList()
         {
-            string token = HttpContext.Session.GetString(SystemConst.TOKEN_NAME);
-            ReadUserDto readUserDto = new ReadUserDto()
-            {
-                RawToken = HttpContext.Session.GetString(SystemConst.TOKEN_NAME)
-            };
-            List<UserDto> userList = await _userService.GetUserList(token, readUserDto);
+            ReadUserDto readUserDto = new ReadUserDto();
+            List<UserDto> userList = await _userService.GetUserList(readUserDto);
             return View("UserList", userList);
         }
 
@@ -54,8 +50,7 @@ namespace ShopOnline.WebAdmin.Controllers
         {
             if (true)
             {
-                string token = HttpContext.Session.GetString(SystemConst.TOKEN_NAME);
-                ViewBag.Result = await _userService.Create(token, createUserDto);
+                ViewBag.Result = await _userService.Create(createUserDto);
             }
             return View();
         }
@@ -63,8 +58,7 @@ namespace ShopOnline.WebAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(Guid userId)
         {
-            string token = HttpContext.Session.GetString(SystemConst.TOKEN_NAME);
-            UserDto userDto = await _userService.GetByUserId(token, userId);
+            UserDto userDto = await _userService.GetByUserId(userId);
             UserBasicInfoDto basicInfoDto = new UserBasicInfoDto()
             {
                 UserId = userDto.UserId,
@@ -80,8 +74,7 @@ namespace ShopOnline.WebAdmin.Controllers
         {
             if (true)
             {
-                string token = HttpContext.Session.GetString(SystemConst.TOKEN_NAME);
-                ViewBag.Result = await _userService.UpdateBasicInfo(token, basicInfoDto);
+                ViewBag.Result = await _userService.UpdateBasicInfo(basicInfoDto);
             }
             return RedirectToAction("GetUserList");
         }

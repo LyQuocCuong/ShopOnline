@@ -1,4 +1,5 @@
 ﻿using ShopOnline.Data.Repositories.Definition;
+using ShopOnline.Helpers.ShopOnlineApi;
 using ShopOnline.Models.System.User;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Services.IServices;
@@ -18,42 +19,42 @@ namespace ShopOnline.Services.Services
             _repository = repository;
         }
 
-        public async Task<bool> IsSucceedLogin(LoginInfoDto loginInfoDto)
+        public async Task<SOApiResult<bool>> IsSucceedLogin(LoginInfoDto loginInfoDto)
         {
             return await _repository.SUSER_REPOSITORY.IsSucceedLogin(loginInfoDto);
         }
 
-        public async Task<string> GenerateToken(string userName)
+        public async Task<SOApiResult<string>> GenerateToken(string userName)
         {
             return await _repository.SUSER_REPOSITORY.GenerateToken(userName);
         }
 
-        public async Task<bool> Create(CreateUserDto createUserDto)
+        public async Task<SOApiResult<bool>> Create(CreateUserDto createUserDto)
         {
             return await _repository.SUSER_REPOSITORY.Create(createUserDto);
         }
 
-        public async Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
+        public async Task<SOApiResult<bool>> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
         {
             return await _repository.SUSER_REPOSITORY.UpdateBasicInfo(basicInfoDto);
         }
 
-        public async Task<bool> UpdatePassword(Guid userId, string newPassword)
+        public async Task<SOApiResult<bool>> UpdatePassword(Guid userId, string newPassword)
         {
             return await _repository.SUSER_REPOSITORY.UpdatePassword(userId, newPassword);
         }
 
-        public async Task<bool> Delete(Guid userId)
+        public async Task<SOApiResult<bool>> Delete(Guid userId)
         {
             return await _repository.SUSER_REPOSITORY.Delete(userId);
         }
 
-        public List<UserDto> GetUserList(ReadUserDto readUserDto)
+        public SOApiResult<List<UserDto>> GetUserList(ReadUserDto readUserDto)
         {
             return _repository.SUSER_REPOSITORY.GetUserList(readUserDto);
         }
 
-        public async Task<UserDto> GetByUserId(Guid userId)
+        public async Task<SOApiResult<UserDto>> GetByUserId(Guid userId)
         {
             return await _repository.SUSER_REPOSITORY.GetByUserId(userId);
         }

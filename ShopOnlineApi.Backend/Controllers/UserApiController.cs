@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ShopOnline.Helpers.ShopOnlineApi;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Services.IServices;
 using System;
@@ -25,49 +26,79 @@ namespace ShopOnline.BackendApi.Controllers
         /// <summary>
         /// if Login succeed, then return a new jwt
         /// </summary>
+        /// <returns>STRING</returns>
         [AllowAnonymous]
         [HttpPost("GetToken")]
-        public async Task<string> GetToken([FromBody]LoginInfoDto loginInfoDto)
+        public async Task<IActionResult> GetToken([FromBody]LoginInfoDto loginInfoDto)
         {
-            string token = "";
-            if (await _userApiService.IsSucceedLogin(loginInfoDto))
+            SOApiResult<bool> resultLogin = await _userApiService.IsSucceedLogin(loginInfoDto);
+            if (resultLogin.IsSucceed)
             {
-                token = await _userApiService.GenerateToken(loginInfoDto.UserName);
+                SOApiResult<string> result = await _userApiService.GenerateToken(loginInfoDto.UserName);
+                if (result.IsSucceed)
+                {
+                    return Ok(result.ReturnedDataJSON);
+                }
+                return BadRequest(result.Message);
             }
-            return token;
+            return BadRequest(resultLogin.Message);
         }
 
-        //https:localhost/UserApi/Create
+        /// https:localhost/UserApi/Create
         [HttpPost("Create")]
-        public async Task<bool> Create([FromBody]CreateUserDto createUserDto)
+        public async Task<IActionResult> Create([FromBody]CreateUserDto createUserDto)
         {
-            return await _userApiService.Create(createUserDto);
+            SOApiResult<bool> result = await _userApiService.Create(createUserDto);
+            if (result.IsSucceed)
+            {
+                return Ok();
+            }
+            return BadRequest(result.Message);
         }
 
         [HttpPut("UpdateBasicInfo")]
-        public async Task<bool> UpdateBasicInfo([FromBody] UserBasicInfoDto basicInfoDto)
+        public async Task<IActionResult> UpdateBasicInfo([FromBody] UserBasicInfoDto basicInfoDto)
         {
-            return await _userApiService.UpdateBasicInfo(basicInfoDto);
+            SOApiResult<bool> result = await _userApiService.UpdateBasicInfo(basicInfoDto);
+            if (result.IsSucceed)
+            {
+                return Ok();
+            }
+            return BadRequest(result.Message);
         }
 
         [HttpPut("UpdatePassword")]
-        public async Task<bool> UpdatePassword([FromQuery] Guid userId, [FromBody] string newPassword)
+        public async Task<IActionResult> UpdatePassword([FromQuery] Guid userId, [FromBody] string newPassword)
         {
-            return await _userApiService.UpdatePassword(userId, newPassword);
+            SOApiResult<bool> result = await _userApiService.UpdatePassword(userId, newPassword);
+            if (result.IsSucceed)
+            {
+                return Ok();
+            }
+            return BadRequest(result.Message);
         }
 
         [HttpGet("GetUserList")]
-        public string GetUserList()
+        public IActionResult GetUserList()
         {
             ReadUserDto readUserDto = new ReadUserDto();
-            return JsonConvert.SerializeObject(_userApiService.GetUserList(readUserDto));
+            SOApiResult<List<UserDto>> result = _userApiService.GetUserList(readUserDto);
+            if (result.IsSucceed)
+            {
+                return Ok(result.ReturnedDataJSON);
+            }
+            return BadRequest(result.Message);
         }
 
         [HttpGet("GetByUserId")]
-        public async Task<string> GetByUserId([FromQuery]Guid userId)
+        public async Task<IActionResult> GetByUserId([FromQuery]Guid userId)
         {
-            ReadUserDto readUserDto = new ReadUserDto();
-            return JsonConvert.SerializeObject(await _userApiService.GetByUserId(userId));
+            SOApiResult<UserDto> result = await _userApiService.GetByUserId(userId);
+            if (result.IsSucceed)
+            {
+                return Ok(result.ReturnedDataJSON);
+            }
+            return BadRequest(result.Message);
         }
 
     }

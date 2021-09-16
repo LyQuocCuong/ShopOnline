@@ -9,6 +9,7 @@ using ShopOnline.Utilities.Consts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShopOnline.Helpers.ShopOnlineApi;
 
 namespace ShopOnline.WebAdmin.Controllers
 {
@@ -35,8 +36,13 @@ namespace ShopOnline.WebAdmin.Controllers
         public async Task<IActionResult> GetUserList()
         {
             ReadUserDto readUserDto = new ReadUserDto();
-            List<UserDto> userList = await _userService.GetUserList(readUserDto);
-            return View("UserList", userList);
+            SOApiResult<List<UserDto>> result = await _userService.GetUserList(readUserDto);
+            if (!result.IsSucceed)
+            {
+                //Log Here
+                return View("UserList", new List<UserDto>());
+            }
+            return View("UserList", result.ReturnedData);
         }
 
         [HttpGet]
@@ -48,23 +54,31 @@ namespace ShopOnline.WebAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserDto createUserDto)
         {
-            if (true)
+            SOApiResult<bool> result = await _userService.Create(createUserDto);
+            if (!result.IsSucceed)
             {
-                ViewBag.Result = await _userService.Create(createUserDto);
+                //Log Here
             }
+            ViewBag.Result = result.IsSucceed;
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(Guid userId)
         {
-            UserDto userDto = await _userService.GetByUserId(userId);
-            UserBasicInfoDto basicInfoDto = new UserBasicInfoDto()
+            UserBasicInfoDto basicInfoDto = new UserBasicInfoDto();
+            SOApiResult<UserDto> result = await _userService.GetByUserId(userId);
+            if (!result.IsSucceed)
             {
-                UserId = userDto.UserId,
-                FullName = userDto.FullName,
-                DOB = userDto.DOB,
-                Email = userDto.Email
+                //Log Here
+            }
+            else 
+            {
+                UserDto userDto = result.ReturnedData;
+                basicInfoDto.UserId = userDto.UserId;
+                basicInfoDto.FullName = userDto.FullName;
+                basicInfoDto.DOB = userDto.DOB;
+                basicInfoDto.Email = userDto.Email;
             };
             return View("UpdateBasicInfo", basicInfoDto);
         }
@@ -72,10 +86,12 @@ namespace ShopOnline.WebAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UserBasicInfoDto basicInfoDto)
         {
-            if (true)
+            SOApiResult<bool> result = await _userService.UpdateBasicInfo(basicInfoDto);
+            if (!result.IsSucceed)
             {
-                ViewBag.Result = await _userService.UpdateBasicInfo(basicInfoDto);
+                //Log Here
             }
+            ViewBag.Result = result.IsSucceed;
             return RedirectToAction("GetUserList");
         }
 

@@ -16,6 +16,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using ShopOnline.Helpers.ShopOnlineApi;
 
 namespace ShopOnline.WebAdmin.Controllers
 {
@@ -49,9 +50,10 @@ namespace ShopOnline.WebAdmin.Controllers
         {
             if (!ModelState.IsValid)
                 return View(loginInfoDto);
-            string token = await _userService.GetToken(loginInfoDto);
-            if (!string.IsNullOrEmpty(token))
+            SOApiResult<string> resultGetToken = await _userService.GetToken(loginInfoDto);
+            if (resultGetToken.IsSucceed && !string.IsNullOrEmpty(resultGetToken.ReturnedData))
             {
+                string token = resultGetToken.ReturnedData;
                 ClaimsPrincipal userPrincipal = this.ValidateToken(token);
                 //cookie
                 var authProp = new AuthenticationProperties()
@@ -71,6 +73,7 @@ namespace ShopOnline.WebAdmin.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+            //Log Here
             return View();
         }
 

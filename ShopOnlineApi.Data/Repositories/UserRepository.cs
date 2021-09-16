@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ShopOnline.Data.Entities;
 using ShopOnline.Data.Repositories.Definition;
+using ShopOnline.Helpers.ShopOnlineApi;
 using ShopOnline.Models.System.User;
 using ShopOnline.Models.System.User.Dto;
 using ShopOnline.Utilities.Consts;
@@ -22,13 +23,13 @@ namespace ShopOnline.Data.Repositories
         {
         }
 
-        public async Task<bool> IsSucceedLogin(LoginInfoDto loginInfoDto)
+        public async Task<SOApiResult<bool>> IsSucceedLogin(LoginInfoDto loginInfoDto)
         {
             S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(loginInfoDto.UserName);
             if (user == null)
             {
                 //Log Here
-                return false;
+                return new SOApiErrorResult<bool>("User not found");
             }
             SignInResult resultLogin = await Repository.SysApi_SignInManager
                                                 .PasswordSignInAsync(
@@ -36,16 +37,20 @@ namespace ShopOnline.Data.Repositories
                                                         loginInfoDto.Password,
                                                         loginInfoDto.IsRemember,
                                                         false);
-            return resultLogin.Succeeded;
+            if (resultLogin.Succeeded)
+            {
+                return new SOApiSuccessResult<bool>();
+            }
+            return new SOApiErrorResult<bool>("Login failed");
         }
 
-        public async Task<string> GenerateToken(string userName)
+        public async Task<SOApiResult<string>> GenerateToken(string userName)
         {
             S_USER user = await Repository.SysApi_UserManager.FindByNameAsync(userName);
             if (user == null)
             {
                 //Log Here
-                return "";
+                return new SOApiErrorResult<string>("User not found");
             };
             List<string> roleNameList = (List<string>)await Repository.SysApi_UserManager.GetRolesAsync(user);
 
@@ -64,7 +69,7 @@ namespace ShopOnline.Data.Repositories
                 userInfo,
                 expires: DateTime.Now.AddMinutes(SystemValue.TIMELIFE_TOKEN_MINUTES),
                 signingCredentials: signatureFormat);
-            return new JwtSecurityTokenHandler().WriteToken(tokenInfo);
+            return new SOApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(tokenInfo));
         }
 
         private async Task<bool> IsDuplicatedInfo(CreateUserDto userDto)
@@ -73,7 +78,7 @@ namespace ShopOnline.Data.Repositories
                    await Repository.SysApi_UserManager.FindByEmailAsync(userDto.Email) != null;
         }
 
-        public async Task<bool> Create(CreateUserDto createUserDto)
+        public async Task<SOApiResult<bool>> Create(CreateUserDto createUserDto)
         {
             if (await IsDuplicatedInfo(createUserDto) == false)
             {
@@ -89,12 +94,16 @@ namespace ShopOnline.Data.Repositories
                     IS_DELETED = false,
                 };
                 var result = await Repository.SysApi_UserManager.CreateAsync(newUser, createUserDto.RawPassword);
-                return result.Succeeded;
+                if (result.Succeeded)
+                {
+                    return new SOApiSuccessResult<bool>();
+                }
+                return new SOApiErrorResult<bool>("Create-User failed");
             }
-            return false;
+            return new SOApiErrorResult<bool>("Duplicate user information");
         }
 
-        public async Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
+        public async Task<SOApiResult<bool>> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
         {
             S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == basicInfoDto.UserId);
             if (existingUser != null)
@@ -103,42 +112,54 @@ namespace ShopOnline.Data.Repositories
                 existingUser.DOB = basicInfoDto.DOB;
                 existingUser.Email = basicInfoDto.Email;
                 var result = await Repository.SysApi_UserManager.UpdateAsync(existingUser);
-                return result.Succeeded;
+                if (result.Succeeded)
+                {
+                    return new SOApiSuccessResult<bool>();
+                }
+                return new SOApiErrorResult<bool>("Update-User failed");
             };
-            return false;
+            return new SOApiErrorResult<bool>("User not found");
         }
 
-        public async Task<bool> UpdatePassword(Guid userId, string newPassword)
+        public async Task<SOApiResult<bool>> UpdatePassword(Guid userId, string newPassword)
         {
             S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == userId);
             if (existingUser != null)
             {
                 existingUser.PasswordHash = newPassword;
                 var result = await Repository.SysApi_UserManager.UpdateAsync(existingUser);
-                return result.Succeeded;
+                if (result.Succeeded)
+                {
+                    return new SOApiSuccessResult<bool>();
+                }
+                return new SOApiErrorResult<bool>("Update-Password-User failed");
             };
-            return false;
+            return new SOApiErrorResult<bool>("User not found");
         }
 
-        public async Task<bool> Delete(Guid userId)
+        public async Task<SOApiResult<bool>> Delete(Guid userId)
         {
             S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == userId);
             if (existingUser != null)
             {
                 existingUser.IS_DELETED = true;
                 var result = await Repository.SysApi_UserManager.UpdateAsync(existingUser);
-                return result.Succeeded;
+                if (result.Succeeded)
+                {
+                    return new SOApiSuccessResult<bool>();
+                }
+                return new SOApiErrorResult<bool>("Delete-User failed");
             };
-            return false;
+            return new SOApiErrorResult<bool>("User not found");
         }
 
-        public async Task<UserDto> GetByUserId(Guid userId)
+        public async Task<SOApiResult<UserDto>> GetByUserId(Guid userId)
         {
             S_USER user = await Repository.SysApi_UserManager.FindByIdAsync(userId.ToString());
             if (user == null)
             {
                 //Log Here
-                return new UserDto();
+                return new SOApiErrorResult<UserDto>("User not found");
             }
             UserDto userDto = new UserDto()
             {
@@ -149,10 +170,10 @@ namespace ShopOnline.Data.Repositories
                 Email = user.Email,
                 Status = user.STATUS
             };
-            return userDto;
+            return new SOApiSuccessResult<UserDto>(userDto);
         }
 
-        public List<UserDto> GetUserList(ReadUserDto readUserDto)
+        public SOApiResult<List<UserDto>> GetUserList(ReadUserDto readUserDto)
         {
             List<UserDto> userList = new List<UserDto>();
             try
@@ -173,7 +194,7 @@ namespace ShopOnline.Data.Repositories
             {
 
             }
-            return userList;
+            return new SOApiSuccessResult<List<UserDto>>(userList);
         }
     }
 }

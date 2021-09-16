@@ -23,75 +23,75 @@ namespace ShopOnline.Helpers.ShopOnlineApi
             return httpClient;
         }
 
-        public static async Task<string> ExecutePostMethodAnonymous(IHttpClientFactory httpClientFactory, string urlPath, object bodyData)
+        public static async Task<SOApiResult<T>> ExecutePostMethodAnonymous<T>(IHttpClientFactory httpClientFactory, string urlPath, object bodyData)
         {
             var httpContent = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
             HttpClient httpClient = SetupConfig(httpClientFactory);
             var responseMessage = await httpClient.PostAsync(urlPath, httpContent);
-            string contentApiResponse = await responseMessage.Content.ReadAsStringAsync();
+            string returnedContent = await responseMessage.Content.ReadAsStringAsync();
             if (!responseMessage.IsSuccessStatusCode)
             {
-                //Log Here
-                //Error = contentApiResponse
-                return "";
+                return new SOApiErrorResult<T>(returnedContent);
             }
-            return contentApiResponse;
+            return typeof(T) == typeof(bool)
+                                ? new SOApiSuccessResult<T>()
+                                : new SOApiSuccessResult<T>(JsonConvert.DeserializeObject<T>(returnedContent));
         }
 
-        public static async Task<string> ExecuteGetMethod(SOApiParams apiParams)
+        public static async Task<SOApiResult<T>> ExecuteGetMethod<T>(SOApiParams apiParams)
         {
             if (!string.IsNullOrEmpty(apiParams.Token))
             {
                 HttpClient httpClient = SetupConfig(apiParams.HttpClientFactory, apiParams.Token);
                 var responseMessage = await httpClient.GetAsync(apiParams.UrlPath);
-                string contentResponse = await responseMessage.Content.ReadAsStringAsync();
+                string returnedContent = await responseMessage.Content.ReadAsStringAsync();
                 if (!responseMessage.IsSuccessStatusCode)
                 {
-                    //Log Here
-                    //Error = contentResponse
-                    return "";
+                    return new SOApiErrorResult<T>(returnedContent);
                 }
-                return contentResponse;
+                return typeof(T) == typeof(bool)
+                                ? new SOApiSuccessResult<T>()
+                                : new SOApiSuccessResult<T>(JsonConvert.DeserializeObject<T>(returnedContent));
             }
-            return "Token Not Found";
+            return new SOApiErrorResult<T>("Token Not Found");
         }
 
-        public static async Task<string> ExecutePostMethod(SOApiParams apiParams)
+        public static async Task<SOApiResult<T>> ExecutePostMethod<T>(SOApiParams apiParams)
         {
             if (!string.IsNullOrEmpty(apiParams.Token))
             {
                 var httpContent = new StringContent(JsonConvert.SerializeObject(apiParams.BodyData), Encoding.UTF8, "application/json");
                 HttpClient httpClient = SetupConfig(apiParams.HttpClientFactory, apiParams.Token);
                 var responseMessage = await httpClient.PostAsync(apiParams.UrlPath, httpContent);
-                string contentResponse = await responseMessage.Content.ReadAsStringAsync();
+                string returnedContent = await responseMessage.Content.ReadAsStringAsync();
                 if (!responseMessage.IsSuccessStatusCode)
                 {
-                    //Log Here
-                    //Error = contentResponse
-                    return "";
+                    return new SOApiErrorResult<T>(returnedContent);
                 }
-                return contentResponse;
+                return typeof(T) == typeof(bool) 
+                                ? new SOApiSuccessResult<T>()
+                                : new SOApiSuccessResult<T>(JsonConvert.DeserializeObject<T>(returnedContent));
             }
-            return "Token Not Found";
+            return new SOApiErrorResult<T>("Token Not Found");
         }
 
-        public static async Task<string> ExecutePutMethod(SOApiParams apiParams)
+        public static async Task<SOApiResult<T>> ExecutePutMethod<T>(SOApiParams apiParams)
         {
             if (!string.IsNullOrEmpty(apiParams.Token))
             {
                 var httpContent = new StringContent(JsonConvert.SerializeObject(apiParams.BodyData), Encoding.UTF8, "application/json");
                 HttpClient httpClient = SetupConfig(apiParams.HttpClientFactory, apiParams.Token);
                 var responseMessage = await httpClient.PutAsync(apiParams.UrlPath, httpContent);
-                string contentResponse = await responseMessage.Content.ReadAsStringAsync();
+                string returnedContent = await responseMessage.Content.ReadAsStringAsync();
                 if (!responseMessage.IsSuccessStatusCode)
                 {
-                    //Log Here
-                    //Error = contentResponse
-                    return "";
+                    return new SOApiErrorResult<T>(returnedContent);
                 }
-                return contentResponse;
+                return typeof(T) == typeof(bool)
+                                ? new SOApiSuccessResult<T>()
+                                : new SOApiSuccessResult<T>(JsonConvert.DeserializeObject<T>(returnedContent));
             }
-            return "Token Not Found";
+            return new SOApiErrorResult<T>("Token Not Found");
         }
 
     }

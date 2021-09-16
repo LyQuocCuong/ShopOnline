@@ -32,14 +32,19 @@
                                         <div class="form-floating mb-3">
                                             <input class="form-control" asp-for="UserName" type="text" placeholder="UserName" />
                                             <label>UserName</label>
+                                            <span style="color:red" asp-validation-for="UserName"></span>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" asp-for="Password" type="password" placeholder="Password" />
                                             <label>Password</label>
+                                            <span style="color:red" asp-validation-for="Password"></span>
                                         </div>
                                         <div class="form-check mb-3">
                                             <input class="form-check-input" asp-for="IsRemember" type="checkbox" value="false" />
                                             <label class="form-check-label">Remember Password</label>
+                                        </div>
+                                        <div style="color:red">
+                                            @Html.ValidationMessage("Exception")
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="password.html">Forgot Password?</a>

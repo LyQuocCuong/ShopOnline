@@ -16,16 +16,20 @@
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="FullName" type="text" placeholder="Full Name" />
                         <label>FullName</label>
+                        <span style="color:red" asp-validation-for="FullName"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="Email" type="email" placeholder="Email" />
                         <label>Email</label>
-                        <span asp-validation-for="Email"></span>
+                        <span style="color:red" asp-validation-for="Email"></span>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="DOB" type="date" placeholder="DOB" />
                         <label>Date of Birth</label>
-                        <span asp-validation-for="DOB"></span>
+                        <span style="color:red" asp-validation-for="DOB"></span>
+                    </div>
+                    <div style="color:red">
+                        @Html.ValidationMessage("Exception")
                     </div>
                 </div>
             </div>

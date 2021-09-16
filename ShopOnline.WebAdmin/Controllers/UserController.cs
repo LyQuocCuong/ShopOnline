@@ -54,13 +54,20 @@ namespace ShopOnline.WebAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserDto createUserDto)
         {
-            SOApiResult<bool> result = await _userService.Create(createUserDto);
-            if (!result.IsSucceed)
+            if (ModelState.IsValid)
             {
-                //Log Here
+                SOApiResult<bool> result = await _userService.Create(createUserDto);
+                if (result.IsSucceed)
+                {
+                    return RedirectToAction("GetUserList");
+                }
+                else
+                {
+                    ModelState.AddModelError("Exception", result.Message);
+                }
             }
-            ViewBag.Result = result.IsSucceed;
-            return View();
+            //Log Here
+            return View(createUserDto);
         }
 
         [HttpGet]
@@ -80,19 +87,26 @@ namespace ShopOnline.WebAdmin.Controllers
                 basicInfoDto.DOB = userDto.DOB;
                 basicInfoDto.Email = userDto.Email;
             };
-            return View("UpdateBasicInfo", basicInfoDto);
+            return View("UserBasicInfo", basicInfoDto);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UserBasicInfoDto basicInfoDto)
         {
-            SOApiResult<bool> result = await _userService.UpdateBasicInfo(basicInfoDto);
-            if (!result.IsSucceed)
+            if (ModelState.IsValid)
             {
-                //Log Here
+                SOApiResult<bool> result = await _userService.UpdateBasicInfo(basicInfoDto);
+                if (result.IsSucceed)
+                {
+                    return RedirectToAction("GetUserList");
+                }
+                else
+                {
+                    ModelState.AddModelError("Exception", result.Message);
+                }
             }
-            ViewBag.Result = result.IsSucceed;
-            return RedirectToAction("GetUserList");
+            //Log Here
+            return View("UserBasicInfo", basicInfoDto);
         }
 
     }

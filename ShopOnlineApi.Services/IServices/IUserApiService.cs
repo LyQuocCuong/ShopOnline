@@ -1,4 +1,5 @@
-﻿using ShopOnline.Models.System.User;
+﻿using ShopOnline.Helpers.ShopOnlineApi;
+using ShopOnline.Models.System.User;
 using ShopOnline.Models.System.User.Dto;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,13 @@ namespace ShopOnline.Services.IServices
 {
     public interface IUserApiService
     {
-        Task<bool> IsSucceedLogin(LoginInfoDto loginInfoDto);
-        Task<string> GenerateToken(string userName);
-        Task<bool> Create(CreateUserDto createUserDto);
-        Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto);
-        Task<bool> UpdatePassword(Guid userId, string newPassword);
-        Task<bool> Delete(Guid userId);
-        List<UserDto> GetUserList(ReadUserDto readUserDto);
-        Task<UserDto> GetByUserId(Guid userId);
+        Task<SOApiResult<bool>> IsSucceedLogin(LoginInfoDto loginInfoDto);
+        Task<SOApiResult<string>> GenerateToken(string userName);
+        Task<SOApiResult<bool>> Create(CreateUserDto createUserDto);
+        Task<SOApiResult<bool>> UpdateBasicInfo(UserBasicInfoDto basicInfoDto);
+        Task<SOApiResult<bool>> UpdatePassword(Guid userId, string newPassword);
+        Task<SOApiResult<bool>> Delete(Guid userId);
+        SOApiResult<List<UserDto>> GetUserList(ReadUserDto readUserDto);
+        Task<SOApiResult<UserDto>> GetByUserId(Guid userId);
     }
 }

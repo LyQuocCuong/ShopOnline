@@ -27,53 +27,47 @@ namespace ShopOnline.WebAdmin.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<string> GetToken(LoginInfoDto loginInfoDto)
+        public async Task<SOApiResult<string>> GetToken(LoginInfoDto loginInfoDto)
         {
             string urlPath = "/UserApi/GetToken";
-            return await SOApiHelper.ExecutePostMethodAnonymous(_httpClientFactory, urlPath, loginInfoDto);
+            return await SOApiHelper.ExecutePostMethodAnonymous<string>(_httpClientFactory, urlPath, loginInfoDto);
         }
 
-        public async Task<bool> Create(CreateUserDto createUserDto)
+        public async Task<SOApiResult<bool>> Create(CreateUserDto createUserDto)
         {
             string urlPath = "/UserApi/Create";
             string token = WebAdminHelper.GetToken(_httpContextAccessor);
             SOApiParams apiParams = new SOApiParams(_httpClientFactory, token, urlPath, createUserDto);;
-            string jsonResult = await SOApiHelper.ExecutePostMethod(apiParams);
-            return JsonConvert.DeserializeObject<bool>(jsonResult);
+            return await SOApiHelper.ExecutePostMethod<bool>(apiParams);
         }
 
-        public async Task<bool> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
+        public async Task<SOApiResult<bool>> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
         {
             string urlPath = "/UserApi/UpdateBasicInfo";
             string token = WebAdminHelper.GetToken(_httpContextAccessor);
             SOApiParams apiParams = new SOApiParams(_httpClientFactory, token, urlPath, basicInfoDto); ;
-            string jsonResult = await SOApiHelper.ExecutePutMethod(apiParams);
-            return JsonConvert.DeserializeObject<bool>(jsonResult);
+            return await SOApiHelper.ExecutePutMethod<bool>(apiParams);
         }
 
-        public Task<bool> UpdatePassword(Guid userId, string newPassword)
+        public Task<SOApiResult<bool>> UpdatePassword(Guid userId, string newPassword)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<UserDto>> GetUserList(ReadUserDto readUserDto)
+        public async Task<SOApiResult<List<UserDto>>> GetUserList(ReadUserDto readUserDto)
         {
             string urlPath = "/UserApi/GetUserList";
             string token = WebAdminHelper.GetToken(_httpContextAccessor);
             SOApiParams apiParams = new SOApiParams(_httpClientFactory, token, urlPath, readUserDto);
-            string jsonResult = await SOApiHelper.ExecuteGetMethod(apiParams);
-            List<UserDto> userList = JsonConvert.DeserializeObject<List<UserDto>>(jsonResult);
-            return userList;
+            return await SOApiHelper.ExecuteGetMethod<List<UserDto>>(apiParams);
         }
 
-        public async Task<UserDto> GetByUserId(Guid userId)
+        public async Task<SOApiResult<UserDto>> GetByUserId(Guid userId)
         {
             string urlPath = $"/UserApi/GetByUserId?userId={userId}";
             string token = WebAdminHelper.GetToken(_httpContextAccessor);
             SOApiParams apiParams = new SOApiParams(_httpClientFactory, token, urlPath, null);
-            string jsonResult = await SOApiHelper.ExecuteGetMethod(apiParams);
-            UserDto userList = JsonConvert.DeserializeObject<UserDto>(jsonResult);
-            return userList;
+            return await SOApiHelper.ExecuteGetMethod<UserDto>(apiParams);
         }
     }
 }

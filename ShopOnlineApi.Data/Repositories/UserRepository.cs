@@ -74,7 +74,7 @@ namespace ShopOnline.Data.Repositories
 
         private async Task<bool> IsDuplicatedInfo(CreateUserDto userDto)
         {
-            return await Repository.SysApi_UserManager.FindByNameAsync(userDto.Username) != null ||
+            return await Repository.SysApi_UserManager.FindByNameAsync(userDto.UserName) != null ||
                    await Repository.SysApi_UserManager.FindByEmailAsync(userDto.Email) != null;
         }
 
@@ -85,7 +85,7 @@ namespace ShopOnline.Data.Repositories
                 S_USER newUser = new S_USER()
                 {
                     Id = Guid.NewGuid(),
-                    UserName = createUserDto.Username,
+                    UserName = createUserDto.UserName,
                     PasswordHash = createUserDto.RawPassword,
                     Email = createUserDto.Email,
                     FULL_NAME = createUserDto.FullName,
@@ -98,7 +98,7 @@ namespace ShopOnline.Data.Repositories
                 {
                     return new SOApiSuccessResult<bool>();
                 }
-                return new SOApiErrorResult<bool>("Create-User failed");
+                return new SOApiErrorResult<bool>("Create-User failed " + string.Join("", result.Errors.Select(e => e.Description).ToList()));
             }
             return new SOApiErrorResult<bool>("Duplicate user information");
         }
@@ -116,7 +116,7 @@ namespace ShopOnline.Data.Repositories
                 {
                     return new SOApiSuccessResult<bool>();
                 }
-                return new SOApiErrorResult<bool>("Update-User failed");
+                return new SOApiErrorResult<bool>("Update-User failed " + string.Join("", result.Errors.Select(e => e.Description).ToList()));
             };
             return new SOApiErrorResult<bool>("User not found");
         }

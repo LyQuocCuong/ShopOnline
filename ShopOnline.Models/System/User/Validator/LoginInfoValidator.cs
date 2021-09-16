@@ -6,9 +6,9 @@ using System.Text;
 
 namespace ShopOnline.Models.System.User.Validator
 {
-    public class LoginUserValidator : AbstractValidator<LoginInfoDto>
+    public class LoginInfoValidator : AbstractValidator<LoginInfoDto>
     {
-        public LoginUserValidator()
+        public LoginInfoValidator()
         {
             RuleFor(x => x.UserName).NotEmpty();
             RuleFor(x => x.Password).NotEmpty();

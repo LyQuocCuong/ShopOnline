@@ -74,6 +74,7 @@ namespace ShopOnline.WebAdmin.Controllers
                 return RedirectToAction("Index", "Home");
             }
             //Log Here
+            ModelState.AddModelError("Exception", resultGetToken.Message);
             return View();
         }
 

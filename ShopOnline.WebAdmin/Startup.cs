@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ShopOnline.Utilities.Consts;
 using Microsoft.AspNetCore.Http;
+using FluentValidation.AspNetCore;
 
 namespace ShopOnline.AppAdmin
 {
@@ -49,17 +50,19 @@ namespace ShopOnline.AppAdmin
                         options.Cookie.IsEssential = true;
                     });
 
-            services.AddControllersWithViews();
-
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(SystemValue.TIMELIFE_SESSION_MINUTES);
                 options.Cookie.Name = "CuongSessionCookie";
             });
 
+            services.AddControllersWithViews()
+                .AddFluentValidation();     //config using Fluent Validation
+
             //DI for Fluent Validation
-            services.AddTransient<IValidator<LoginInfoDto>, LoginUserValidator>();
+            services.AddTransient<IValidator<LoginInfoDto>, LoginInfoValidator>();
             services.AddTransient<IValidator<CreateUserDto>, CreateUserValidator>();
+            services.AddTransient<IValidator<UserBasicInfoDto>, UserBasicInfoValidator>();
 
             //DI
             services.AddTransient<IUserService, UserService>();

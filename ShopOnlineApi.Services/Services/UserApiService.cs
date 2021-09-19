@@ -31,12 +31,30 @@ namespace ShopOnline.Services.Services
 
         public async Task<SOApiResult<bool>> Create(CreateUserDto createUserDto)
         {
-            return await _repository.SUSER_REPOSITORY.Create(createUserDto);
+            SOApiResult<bool> result = _repository.SUSER_REPOSITORY.VerifyUserInfo(new UserDto()
+            {
+                Username = createUserDto.UserName,
+                Email = createUserDto.Email
+            });
+            if (result.IsSucceed)
+            {
+                return await _repository.SUSER_REPOSITORY.Create(createUserDto);
+            }
+            return result;
         }
 
         public async Task<SOApiResult<bool>> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
         {
-            return await _repository.SUSER_REPOSITORY.UpdateBasicInfo(basicInfoDto);
+            SOApiResult<bool> result = _repository.SUSER_REPOSITORY.VerifyUserInfo(new UserDto()
+            {
+                UserId = basicInfoDto.UserId,
+                Email = basicInfoDto.Email
+            });
+            if (result.IsSucceed)
+            {
+                return await _repository.SUSER_REPOSITORY.UpdateBasicInfo(basicInfoDto);
+            }
+            return result;
         }
 
         public async Task<SOApiResult<bool>> UpdatePassword(Guid userId, string newPassword)

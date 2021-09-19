@@ -72,40 +72,45 @@ namespace ShopOnline.Data.Repositories
             return new SOApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(tokenInfo));
         }
 
-        private async Task<bool> IsDuplicatedInfo(CreateUserDto userDto)
+        public SOApiResult<bool> VerifyUserInfo(UserDto userDto)
         {
-            return await Repository.SysApi_UserManager.FindByNameAsync(userDto.UserName) != null ||
-                   await Repository.SysApi_UserManager.FindByEmailAsync(userDto.Email) != null;
+            if (this.DataSet.FirstOrDefault(u => !string.IsNullOrEmpty(userDto.Username) && u.UserName == userDto.Username && 
+                                                (userDto.UserId == Guid.Empty || u.Id != userDto.UserId)) != null)
+            {
+                return new SOApiErrorResult<bool>("Username is existing");
+            }
+            if (this.DataSet.FirstOrDefault(u => !string.IsNullOrEmpty(userDto.Email) && u.Email == userDto.Email &&
+                                                (userDto.UserId != Guid.Empty ? u.Id != userDto.UserId : true)) != null)
+            {
+                return new SOApiErrorResult<bool>("Email is existing");
+            }
+            return new SOApiSuccessResult<bool>();
         }
 
         public async Task<SOApiResult<bool>> Create(CreateUserDto createUserDto)
         {
-            if (await IsDuplicatedInfo(createUserDto) == false)
+            S_USER newUser = new S_USER()
             {
-                S_USER newUser = new S_USER()
-                {
-                    Id = Guid.NewGuid(),
-                    UserName = createUserDto.UserName,
-                    PasswordHash = createUserDto.RawPassword,
-                    Email = createUserDto.Email,
-                    FULL_NAME = createUserDto.FullName,
-                    DOB = createUserDto.DOB,
-                    STATUS = Enums.UserStatus.Activated,
-                    IS_DELETED = false,
-                };
-                var result = await Repository.SysApi_UserManager.CreateAsync(newUser, createUserDto.RawPassword);
-                if (result.Succeeded)
-                {
-                    return new SOApiSuccessResult<bool>();
-                }
-                return new SOApiErrorResult<bool>("Create-User failed " + string.Join("", result.Errors.Select(e => e.Description).ToList()));
+                Id = Guid.NewGuid(),
+                UserName = createUserDto.UserName,
+                PasswordHash = createUserDto.RawPassword,
+                Email = createUserDto.Email,
+                FULL_NAME = createUserDto.FullName,
+                DOB = createUserDto.DOB,
+                STATUS = Enums.UserStatus.Activated,
+                IS_DELETED = false,
+            };
+            var result = await Repository.SysApi_UserManager.CreateAsync(newUser, createUserDto.RawPassword);
+            if (result.Succeeded)
+            {
+                return new SOApiSuccessResult<bool>();
             }
-            return new SOApiErrorResult<bool>("Duplicate user information");
+            return new SOApiErrorResult<bool>("Create-User failed " + string.Join("", result.Errors.Select(e => e.Description).ToList()));
         }
 
         public async Task<SOApiResult<bool>> UpdateBasicInfo(UserBasicInfoDto basicInfoDto)
         {
-            S_USER existingUser = DataSet.FirstOrDefault(u => u.Id == basicInfoDto.UserId);
+            S_USER existingUser = DataSet.FirstOrDefault(u => !u.IS_DELETED && u.Id == basicInfoDto.UserId);
             if (existingUser != null)
             {
                 existingUser.FULL_NAME = basicInfoDto.FullName;

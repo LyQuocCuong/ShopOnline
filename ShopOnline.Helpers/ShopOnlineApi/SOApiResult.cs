@@ -11,6 +11,8 @@ namespace ShopOnline.Helpers.ShopOnlineApi
 
         public T ReturnedData { get; }
 
+        public string Message { get; }
+
         public string ReturnedDataJSON
         {
             get
@@ -18,8 +20,6 @@ namespace ShopOnline.Helpers.ShopOnlineApi
                 return this.ReturnedData != null ? JsonConvert.SerializeObject(this.ReturnedData) : "";
             }
         }
-
-        public string Message { get; }
 
         protected SOApiResult(bool isSucceed)
         {
